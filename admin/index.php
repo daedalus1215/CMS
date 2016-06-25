@@ -24,9 +24,27 @@
 
 
 
-    $found_user = User::find_user_by_id(1);
-    $user = User::instantiation($found_user);
-    echo $user->username;
+//    $found_user = User::find_user_by_id(1);
+//    $user = User::instantiation($found_user);
+//    echo $user->username;
+
+
+
+
+    $users = User::find_all_users();
+
+    foreach ($users as $user) {
+        echo $user->first_name . ' ' . $user->last_name;
+    }
+
+
+
+
+
+
+
+
+
 
 ?>
 

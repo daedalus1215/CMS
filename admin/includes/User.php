@@ -1,7 +1,7 @@
 <?php
 class User
 {
-
+    // Properties or Attributes of the User class.
     public $id;
     public $username;
     public $password;
@@ -26,8 +26,10 @@ class User
      */
     public static function find_user_by_id($id)
     {
+        global $database;
         $sql = "SELECT * FROM users WHERE id = $id LIMIT 1";
         $result_sets = self::find_this_query($sql);
+        //var_dump($result_sets);
         $found_user = mysqli_fetch_array($result_sets);
         return $found_user;
     }
@@ -47,37 +49,36 @@ class User
         while($row = mysqli_fetch_assoc($result_set)) {
             $the_object_array[] = self::instantiation($row);
         }
-
         return $the_object_array;
     }
 
     /**
      *
-     * @param Array $the_record is a returned record, a array of the row.
+     * @param Array $row is a returned record, a array of the row.
      * @return \self $the_object is a User object.
      */
-    public static function instantiation($the_record)
+    public static function instantiation($row)
     {
-        $the_object               = new self();
+        $the_object = new self();
 
-        foreach ($the_record as $the_attribute => $value) {
+        foreach ($row as $the_attribute => $value) {
             if ($the_object->has_the_attribute($the_attribute)) {
-                $the_object->the_attribute = $value;
+                $the_object->$the_attribute = $value;
             }
         }
-
 
         return $the_object;
     }
 
     /**
      * Check to see if this String matches the object's attribute or property
-     * @param String Name of a property this object should have.
+     * @param String $the_attribute of a property this object should have.
+     * @return Boolean - whether or not this User object has a property that matches $the_attribute string.
      */
     private function has_the_attribute($the_attribute)
     {
         $object_properties = get_object_vars($this);
-        array_key_exists($the_attribute, $object_properties);
+        return array_key_exists($the_attribute, $object_properties);
     }
 }
 

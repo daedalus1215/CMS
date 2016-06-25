@@ -12,7 +12,7 @@ class Database
     }
 
 
-    public function open_db_connect()
+    private function open_db_connect()
     {
         $this->connection = new mysqli(
                                     DB_HOST,
@@ -56,3 +56,4 @@ class Database
     }
 
 }
+$database = new Database();

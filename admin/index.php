@@ -24,9 +24,13 @@
 
 
 
-    $user = User::find_user_by_id(2);
-    echo $user['first_name'];
+    $users = User::find_all_users();
+    foreach ($users as $user) {
+        echo $user['first_name'] . "<br/>";
+    }
 
+    $user = User::find_user_by_id(1);
+    echo $user['first_name'];
 ?>
 
                         <ol class="breadcrumb">

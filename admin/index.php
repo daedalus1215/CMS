@@ -19,9 +19,7 @@
                             <small>Subheading</small>
                         </h1>
                       <?php
-                        if ($database) {
-                            $database->ope
-                        }
+                        $database = new Database();
                       ?>
 
 

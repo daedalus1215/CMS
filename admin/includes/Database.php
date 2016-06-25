@@ -21,4 +21,11 @@ class Database
             die("DB fail " . mysqli_error());
         }
     }
+
+
+    public function query($sql)
+    {
+        
+    }
+
 }

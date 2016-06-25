@@ -19,14 +19,15 @@
                             <small>Subheading</small>
                         </h1>
 
-                        <?php
-$db = new Database();
-$result = $db->query('SELECT * FROM users');
-$user_found = mysqli_fetch_array($result);
+<?php
+    include("includes/User.php");
+    $user = new User();
+    $result_set = $user->find_all_users();
+    while ($row = mysqli_fetch_all($result_set)) {
+        echo $row['first_name'] . $row['last_name'];
+    }
+?>
 
-echo $user_found['username'];
-
-                        ?>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

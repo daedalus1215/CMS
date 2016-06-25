@@ -36,20 +36,25 @@ class User
      * This method will return query results.
      * @global Database $database
      * @param String $sql
-     * @return Array the result in an array.
+     * @return \User the result in a User object.
      */
     public static function find_this_query($sql)
     {
         // execute any query and return it to us.
         global $database;
         $result_set = $database->query($sql);
-        return $result_set;
+        $the_object_array = array();
+        while($row = mysqli_fetch_assoc($result_set)) {
+            $the_object_array[] = self::instantiation($row);
+        }
+
+        return $the_object_array;
     }
 
     /**
      *
      * @param Array $the_record is a returned record, a array of the row.
-     * @return \self
+     * @return \self $the_object is a User object.
      */
     public static function instantiation($the_record)
     {

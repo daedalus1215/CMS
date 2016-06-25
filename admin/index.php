@@ -23,8 +23,8 @@
     include("includes/User.php");
     $user = new User();
     $result_set = $user->find_all_users();
-    while ($row = mysqli_fetch_all($result_set)) {
-        echo $row['first_name'] . $row['last_name'];
+    while ($row = mysqli_fetch_assoc($result_set)) {
+       echo $row['first_name'] . ' ' . $row['last_name'];
     }
 ?>
 

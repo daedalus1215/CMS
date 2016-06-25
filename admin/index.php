@@ -18,12 +18,15 @@
                             ADMIN
                             <small>Subheading</small>
                         </h1>
-                      <?php
-                        $database = new Database();
-                      ?>
 
+                        <?php
+$db = new Database();
+$result = $db->query('SELECT * FROM users');
+$user_found = mysqli_fetch_array($result);
 
+echo $user_found['username'];
 
+                        ?>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

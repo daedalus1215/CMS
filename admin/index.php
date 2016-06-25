@@ -21,11 +21,12 @@
 
 <?php
     include("includes/User.php");
-    $user = new User();
-    $result_set = $user->find_all_users();
-    while ($row = mysqli_fetch_assoc($result_set)) {
-       echo $row['first_name'] . ' ' . $row['last_name'];
-    }
+
+
+
+    $user = User::find_user_by_id(2);
+    echo $user['first_name'];
+
 ?>
 
                         <ol class="breadcrumb">

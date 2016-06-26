@@ -22,6 +22,11 @@ class User
                 . "WHERE username = {$username} "
                 . "AND password = {$password} "
                 . "LIMIT 1";
+
+
+        $result = self::find_this_query($sql);
+
+        return !empty($result) ? array_shift($result) : false;
     }
 
 

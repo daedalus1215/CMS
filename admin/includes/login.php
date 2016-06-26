@@ -11,6 +11,8 @@
         $password = htmlspecialchars(trim($_POST['password']));
 
         // Check the DB for the user.
+        $user_found = User::verify_user($username, $password);
+
 
         if ($user_found) {
             $session->login($user_found);

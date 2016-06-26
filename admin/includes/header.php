@@ -1,5 +1,14 @@
 <?php ob_start(); ?>
 <?php include("init.php"); ?>
+<?php
+
+// if user is not signed in.
+if (!$session->is_signed_in()) redirect("login");
+
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

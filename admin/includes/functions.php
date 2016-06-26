@@ -20,3 +20,11 @@ function ClassAutoLoader($className)
 }
 // invoke spl_register on the Autoloader above.
 spl_autoload_register('classAutoLoader');
+
+
+
+function redirect($location)
+{
+    // redirect user to.
+    header("Location: {$location}.php");
+}

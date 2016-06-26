@@ -5,7 +5,7 @@ class Session
      * If the current user is logged in or not.
      * @var boolean
      */
-    private $signed_in;
+    private $signed_in = false;
     /**
      * The user's id.
      * @var Integer
@@ -15,6 +15,7 @@ class Session
     function __construct()
     {
         session_start();
+        $this->check_the_login();
     }
 
     /**
@@ -33,6 +34,39 @@ class Session
     }
 
 
+
+    /**
+     * Tells us if we are signed in.
+     * @return Boolean $this->signed_in
+     */
+    public function is_signed_in()
+    {
+        return $this->signed_in;
+    }
+
+
+    /**
+     * Log in a particular user.
+     * @param User $user: passed in from the database.
+     */
+    public function login($user)
+    {
+        if ($user) {
+            $this->user_id = $_SESSION['user_id'] = $user->id;
+            $this->signed_in = true;
+        }
+    }
+
+    /**
+     * Log out the user.
+     */
+    public function logout()
+    {
+        unset($this->user_id);
+        unset($_SESSION);
+        $this->signed_in;
+    }
+
 }
 
-$Session = new Session();
+$session = new Session();

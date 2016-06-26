@@ -22,16 +22,15 @@ class User
      * Retrieve a user by their id.
      * @global Database $database
      * @param Integer $id, a user's id.
-     * @return Array of an user.
+     * @return User object of the user.
      */
     public static function find_user_by_id($id)
     {
-        global $database;
         $sql = "SELECT * FROM users WHERE id = $id LIMIT 1";
-        $result_sets = self::find_this_query($sql);
+        $result_set = self::find_this_query($sql);
         //var_dump($result_sets);
-        $found_user = mysqli_fetch_array($result_sets);
-        return $found_user;
+
+        return !empty($result_set) ? array_shift($result_set) : false;
     }
 
     /**
@@ -53,8 +52,8 @@ class User
     }
 
     /**
-     *
-     * @param Array $row is a returned record, a array of the row.
+     * Instantiates User instance out of the passed in query associated array.
+     * @param AssociativeArray $row is a returned record, a array of the row.
      * @return \self $the_object is a User object.
      */
     public static function instantiation($row)

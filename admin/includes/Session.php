@@ -1,4 +1,5 @@
 <?php
+session_start();
 class Session
 {
     /**
@@ -14,7 +15,6 @@ class Session
 
     function __construct()
     {
-        session_start();
         $this->check_the_login();
     }
 
@@ -62,11 +62,11 @@ class Session
      */
     public function logout()
     {
+        print "logged out";
         unset($this->user_id);
-        unset($_SESSION);
-        $this->signed_in;
+        $_SESSION = Array();
+        $this->signed_in = false;
     }
 
 }
-
 $session = new Session();

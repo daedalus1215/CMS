@@ -15,6 +15,7 @@
 
 
         if ($user_found) {
+            unset($_POST);
             $session->login($user_found);
             redirect("index");
         } else {
@@ -27,7 +28,7 @@
     }
 ?>
 
-<div class="col-md-4 col-md-offset-5">
+<div class="col-md-4 col-md-offset-3">
     <form method="post" action="">
       <div class="form-group">
            <label for="username">Username</label>

@@ -23,7 +23,6 @@ class User
                 . "AND password = '$password' "
                 . "LIMIT 1";
 
-        print $sql;
 
         $result = self::find_this_query($sql);
 

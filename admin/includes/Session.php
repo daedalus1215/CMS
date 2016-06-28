@@ -13,9 +13,13 @@ class Session
      */
     public $user_id;
 
+    public $message;
+
+
     function __construct()
     {
         $this->check_the_login();
+        $this->check_message();
     }
 
     /**
@@ -67,6 +71,27 @@ class Session
         $_SESSION = Array();
         $this->signed_in = false;
     }
+
+    public function message($msg = "")
+    {
+        if (!empty($msg)) {
+            $_SESSION['message'] = $msg;
+        } else {
+            return $this->message;
+        }
+    }
+
+    public function check_message()
+    {
+        if (isset($_SESSION['message'])) {
+            $this->message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        } else {
+            $this->message = "";
+        }
+    }
+
+
 
 }
 $session = new Session();

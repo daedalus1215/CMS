@@ -1,50 +1,34 @@
 <?php include("includes/header.php"); ?>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <?php include("includes/top_nav.php"); ?>
-            <?php include("includes/side_nav.php"); ?>
-            <!-- /.navbar-collapse -->
-        </nav>
+<?php if(!$session->is_signed_in()) { redirect("login"); } ?>
 
-        <div id="page-wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <?php include("includes/top_nav.php"); ?>
+        <?php include("includes/side_nav.php"); ?>
+        <!-- /.navbar-collapse -->
+    </nav>
 
-            <div class="container-fluid">
+    <div id="page-wrapper">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            ADMIN
-                            <small>Subheading</small>
-                        </h1>
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        ADMIN
+                        <small>Subheading</small>
+                    </h1>
 
 <?php
     include("includes/User.php");
-
-
-
-//    $found_user = User::find_user_by_id(1);
-//    $user = User::instantiation($found_user);
-//    echo $user->username;
 
     $users = User::find_all_users();
 
     foreach ($users as $user) {
         echo $user->first_name . ' ' . $user->last_name . '<br/>';
     }
-
-    $car = new Car();
-    $car->run();
-
-
-
-
-
-
-
-
-
 ?>
 
 

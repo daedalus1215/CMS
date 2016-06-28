@@ -19,10 +19,11 @@ class User
         $password = $database->escape_string($password);
 
         $sql = "SELECT * FROM users "
-                . "WHERE username = {$username} "
-                . "AND password = {$password} "
+                . "WHERE username = '$username' "
+                . "AND password = '$password' "
                 . "LIMIT 1";
 
+        print $sql;
 
         $result = self::find_this_query($sql);
 

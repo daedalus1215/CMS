@@ -48,10 +48,13 @@ class Database
         return $escaped_string;
     }
 
-
+    /**
+     * Give us the last id of an insert query.
+     * @return Integer - the ID of the last inserted query.
+     */
     public function the_insert_id()
     {
-        return $this->connection->insert_id;
+        return mysqli_insert_id($this->connection);
     }
 
 }

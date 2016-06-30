@@ -21,14 +21,18 @@
                         <small>Subheading</small>
                     </h1>
 
+
 <?php
     include("includes/User.php");
 
-    $users = User::find_all_users();
+    $user = new User();
+    $user->username = "Harry";
+    $user->password = "harry";
+    $user->first_name = "Harry";
+    $user->last_name = "Potter";
+    echo ($user->create());
 
-    foreach ($users as $user) {
-        echo $user->first_name . ' ' . $user->last_name . '<br/>';
-    }
+
 ?>
 
 

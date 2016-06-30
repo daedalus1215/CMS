@@ -9,8 +9,6 @@ class User
     public $last_name;
 
 
-
-
     public static function verify_user($username, $password)
     {
         global $database;
@@ -51,6 +49,7 @@ class User
         return !empty($result_set) ? array_shift($result_set) : false;
     }
 
+
     /**
      * This method will return query results.
      * @global Database $database
@@ -68,6 +67,7 @@ class User
         }
         return $the_object_array;
     }
+
 
     /**
      * Instantiates User instance out of the passed in query associated array.
@@ -87,6 +87,7 @@ class User
         return $the_object;
     }
 
+
     /**
      * Check to see if this String matches the object's attribute or property
      * @param String $the_attribute of a property this object should have.
@@ -97,5 +98,31 @@ class User
         $object_properties = get_object_vars($this);
         return array_key_exists($the_attribute, $object_properties);
     }
-}
+
+
+    // <----------------------------------------------------
+    //              CRUD STUFF
+    // <----------------------------------------------------
+    public function create()
+    {
+        global $database;
+        $sql = "INSERT INTO users (username, password, first_name, last_name) ";
+        $sql .= "VALUES ( "
+                . "'{$database->escape_string($this->username)}', "
+                . "'{$database->escape_string($this->password)}', "
+                . "'{$database->escape_string($this->first_name)}', "
+                . "'{$database->escape_string($this->last_name)}' "
+                . ")";
+
+        // running the query and grabbing the id of the last inserted query.
+        if ($database->query($sql)) {
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+} // End of class User
 

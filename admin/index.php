@@ -25,12 +25,10 @@
 <?php
     include("includes/User.php");
 
-    $user = new User();
-    $user->username = "Harry";
-    $user->password = "harry";
-    $user->first_name = "Harry";
-    $user->last_name = "Potter";
-    echo ($user->create());
+    $user = User::find_user_by_id(1);
+    $user->last_name = "Harry";
+
+    echo ($user->update());
 
 
 ?>

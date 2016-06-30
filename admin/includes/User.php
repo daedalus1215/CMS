@@ -42,7 +42,7 @@ class User
      */
     public static function find_user_by_id($id)
     {
-        $sql = "SELECT * FROM users WHERE id = $id LIMIT 1";
+        $sql = "SELECT * FROM users WHERE id = '$id' LIMIT 1";
         $result_set = self::find_this_query($sql);
         //var_dump($result_sets);
 
@@ -123,6 +123,21 @@ class User
         }
     }
 
+
+    public function update()
+    {
+        global $database;
+        $sql = "UPDATE users SET "
+                . " username = '{$database->escape_string($this->username)}', "
+                . " password = '{$database->escape_string($this->password)}', "
+                . " first_name = '{$database->escape_string($this->first_name)}', "
+                . " last_name = '{$database->escape_string($this->last_name)}' "
+                . " WHERE id = {$database->escape_string($this->id)}";
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database) == 1) ? true : false;
+    }
 
 } // End of class User
 

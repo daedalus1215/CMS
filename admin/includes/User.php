@@ -135,7 +135,7 @@ class User
         $properties = $this->properties();
 
         $sql = "INSERT INTO " . self::$db_table
-                . " (" . implode(",", array_keys($properties)) . ") ";
+                . " (" . implode(", ", array_keys($properties)) . ") ";
         $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
 
         // running the query and grabbing the id of the last inserted query.
@@ -156,13 +156,13 @@ class User
         $properties_pairs = array();
 
         foreach ($properties as $key => $value) {
-            $properties[$key] = "{$key} = '{$value}'";
+            $properties_pairs[$key] = "{$key} = '{$value}'";
         }
 
         $sql = "UPDATE " . self::$db_table. " SET "
                 . implode(",", $properties_pairs)
                 . " WHERE id = {$database->escape_string($this->id)}";
-
+        
         $database->query($sql);
 
         return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;

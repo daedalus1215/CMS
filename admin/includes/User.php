@@ -120,6 +120,20 @@ class User
     }
 
 
+
+    protected function clean_properties()
+    {
+        global $database;
+
+        $clean_properties = array();
+
+        foreach ($this->properties() as $key => $value) {
+            $clean_properties[$key] = $database->escape_string($value);
+        }
+
+        return $clean_properties;
+    }
+
     // <----------------------------------------------------
     //              CRUD STUFF
     // <----------------------------------------------------
@@ -132,7 +146,7 @@ class User
     public function create()
     {
         global $database;
-        $properties = $this->properties();
+        $properties = $this->clean_properties();
 
         $sql = "INSERT INTO " . self::$db_table
                 . " (" . implode(", ", array_keys($properties)) . ") ";
@@ -152,7 +166,7 @@ class User
     {
         global $database;
 
-        $properties = $this->properties();
+        $properties = $this->clean_properties();
         $properties_pairs = array();
 
         foreach ($properties as $key => $value) {
@@ -162,7 +176,7 @@ class User
         $sql = "UPDATE " . self::$db_table. " SET "
                 . implode(",", $properties_pairs)
                 . " WHERE id = {$database->escape_string($this->id)}";
-        
+
         $database->query($sql);
 
         return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;

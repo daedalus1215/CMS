@@ -1,6 +1,9 @@
 <?php
 class User
 {
+    protected static $db_table = "users";
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
+
     // Properties or Attributes of the User class.
     public $id;
     public $username;
@@ -16,10 +19,10 @@ class User
         $username = $database->escape_string($username);
         $password = $database->escape_string($password);
 
-        $sql = "SELECT * FROM users "
-                . "WHERE username = '$username' "
-                . "AND password = '$password' "
-                . "LIMIT 1";
+        $sql = "SELECT * FROM " . self::$db_table
+                . " WHERE username = '$username' "
+                . " AND password = '$password' "
+                . " LIMIT 1";
 
 
         $result = self::find_this_query($sql);
@@ -30,7 +33,7 @@ class User
 
     public static function find_all_users()
     {
-        return self::find_this_query('SELECT * FROM users');
+        return self::find_this_query("SELECT * FROM " . self::$db_table);
     }
 
 
@@ -42,11 +45,14 @@ class User
      */
     public static function find_user_by_id($id)
     {
-        $sql = "SELECT * FROM users WHERE id = '$id' LIMIT 1";
+        global $database;
+        $sql = "SELECT * FROM ".self::$db_table
+            . " WHERE id = {$database->escape_string($id)} LIMIT 1";
+
         $result_set = self::find_this_query($sql);
         //var_dump($result_sets);
 
-        return !empty($result_set) ? array_shift($result_set) : false;
+        return !empty($result_set) ? array_shift($result_set) : new User();
     }
 
 
@@ -100,19 +106,37 @@ class User
     }
 
 
+    protected function properties()
+    {
+
+        $properties = array();
+        foreach (self::$db_table_fields as $db_field) {
+            if (property_exists($this, $db_field)) {
+                $properties[$db_field] = $this->$db_field;
+            }
+        }
+
+        return $properties;
+    }
+
+
     // <----------------------------------------------------
     //              CRUD STUFF
     // <----------------------------------------------------
+    public function save()
+     {
+        return isset($this->id) ? $this->update() : $this->create();
+     }
+
+
     public function create()
     {
         global $database;
-        $sql = "INSERT INTO users (username, password, first_name, last_name) ";
-        $sql .= "VALUES ( "
-                . "'{$database->escape_string($this->username)}', "
-                . "'{$database->escape_string($this->password)}', "
-                . "'{$database->escape_string($this->first_name)}', "
-                . "'{$database->escape_string($this->last_name)}' "
-                . ")";
+        $properties = $this->properties();
+
+        $sql = "INSERT INTO " . self::$db_table
+                . " (" . implode(",", array_keys($properties)) . ") ";
+        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
 
         // running the query and grabbing the id of the last inserted query.
         if ($database->query($sql)) {
@@ -127,7 +151,7 @@ class User
     public function update()
     {
         global $database;
-        $sql = "UPDATE users SET "
+        $sql = "UPDATE " . self::$db_table. " SET "
                 . " username = '{$database->escape_string($this->username)}', "
                 . " password = '{$database->escape_string($this->password)}', "
                 . " first_name = '{$database->escape_string($this->first_name)}', "
@@ -136,7 +160,20 @@ class User
 
         $database->query($sql);
 
-        return (mysqli_affected_rows($database) == 1) ? true : false;
+        return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+    }
+
+
+    public function delete()
+    {
+        global $database;
+
+        $sql = "DELETE FROM " . self::$db_table
+            . " WHERE id = {$database->escape_string($this->id)} "
+            . " LIMIT 1";
+
+        $database->query($sql);
+        return (mysqli_affected_rows($database->getConnection())) ? true : false;
     }
 
 } // End of class User

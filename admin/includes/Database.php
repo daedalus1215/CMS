@@ -4,7 +4,11 @@
 class Database
 {
     protected $connection;
-
+    
+    public function getConnection()
+    {
+        return $this->connection;
+    }
 
     public function __construct()
     {

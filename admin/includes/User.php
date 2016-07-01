@@ -151,11 +151,16 @@ class User
     public function update()
     {
         global $database;
+
+        $properties = $this->properties();
+        $properties_pairs = array();
+
+        foreach ($properties as $key => $value) {
+            $properties[$key] = "{$key} = '{$value}'";
+        }
+
         $sql = "UPDATE " . self::$db_table. " SET "
-                . " username = '{$database->escape_string($this->username)}', "
-                . " password = '{$database->escape_string($this->password)}', "
-                . " first_name = '{$database->escape_string($this->first_name)}', "
-                . " last_name = '{$database->escape_string($this->last_name)}' "
+                . implode(",", $properties_pairs)
                 . " WHERE id = {$database->escape_string($this->id)}";
 
         $database->query($sql);

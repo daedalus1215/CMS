@@ -48,6 +48,7 @@ class Photo extends Db_object
      * Get the name of the file and not the location of where it is.
      * basename() cleans up the path.
      *
+     * Set the properties as well.
      *
      * @param $_FILES $file: is the $_FILES superglobal.
      */
@@ -64,7 +65,7 @@ class Photo extends Db_object
             $this->errors[] = $this->upload_errors_array($file['error']);
             return false;
         }
-        // No errors
+        // No errors - set properties
         else {
             $this->filename = basename($file['name']);
             $this->tmp_path = $file['tmp_name'];
@@ -72,7 +73,7 @@ class Photo extends Db_object
             $this->size     = $file['size'];
         }
 
-        
+
 
     }
 

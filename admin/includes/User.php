@@ -1,5 +1,13 @@
 <?php
-class User
+
+
+
+
+
+
+
+
+class User extends Db_object
 {
     protected static $db_table = "users";
     protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
@@ -31,11 +39,10 @@ class User
     }
 
 
-    public static function find_all_users()
+    public static function find_all()
     {
-        return self::find_this_query("SELECT * FROM " . self::$db_table);
+         return self::find_this_query("SELECT * FROM " . self::$db_table);
     }
-
 
     /**
      * Retrieve a user by their id.
@@ -43,10 +50,10 @@ class User
      * @param Integer $id, a user's id.
      * @return User object of the user.
      */
-    public static function find_user_by_id($id)
+    public static function find_by_id($id)
     {
         global $database;
-        $sql = "SELECT * FROM ".self::$db_table
+        $sql = "SELECT * FROM " . self::$db_table
             . " WHERE id = {$database->escape_string($id)} LIMIT 1";
 
         $result_set = self::find_this_query($sql);

@@ -1,6 +1,5 @@
 <?php
 
-
 class Database
 {
     protected $connection;
@@ -18,11 +17,6 @@ class Database
 
     private function open_db_connect()
     {
-        echo "OPENING DB CONNECTION WITH "
-        . "HOST = ". DB_HOST
-        . "DB_USER = " . DB_USER;
-
-
         $this->connection = new mysqli(
                                     DB_HOST,
                                     DB_USER,

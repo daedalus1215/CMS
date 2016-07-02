@@ -27,7 +27,7 @@
 
     $users = User::find_all();
     foreach ($users as $user) {
-        echo $user->username;
+        echo $user->username . '<br/>';
     }
 
 

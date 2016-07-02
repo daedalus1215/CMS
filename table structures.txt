@@ -1,0 +1,8 @@
+photos
+
+photo_id int(11)
+title varchar(255)
+description text
+filename varchar(255)
+type varchar(255)
+size(11)

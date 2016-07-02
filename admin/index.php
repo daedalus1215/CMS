@@ -25,13 +25,11 @@
 <?php
     include("includes/User.php");
 
-    $user = new User();
-    //$user = User::find_user_by_id(5);
-    $user->username = "jim";
-    $user->password = "jim";
-    $user->first_name = "sally";
-    $user->last_name = "manny";
-    $user->create();
+    $users = User::find_all();
+    foreach ($users as $user) {
+        echo $user->username;
+    }
+
 
 
 ?>

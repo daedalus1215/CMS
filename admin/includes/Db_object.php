@@ -24,6 +24,37 @@ class Db_object
         return array_key_exists($the_attribute, $object_properties);
     }
 
+    protected function properties()
+    {
+
+        $properties = array();
+        foreach (static::$db_table_fields as $db_field) {
+            if (property_exists($this, $db_field)) {
+                $properties[$db_field] = $this->$db_field;
+            }
+        }
+
+        return $properties;
+    }
+
+
+
+    protected function clean_properties()
+    {
+        global $database;
+
+        $clean_properties = array();
+
+        foreach ($this->properties() as $key => $value) {
+            $clean_properties[$key] = $database->escape_string($value);
+        }
+
+        return $clean_properties;
+    }
+
+
+
+
 
     /**
      * Instantiates User instance out of the passed in query associated array.
@@ -52,7 +83,7 @@ class Db_object
      * @param String $sql
      * @return \User the result in a User object.
      */
-    public static function find_this_query($sql)
+    public static function find_by_query($sql)
     {
         // execute any query and return it to us.
         global $database;
@@ -77,7 +108,7 @@ class Db_object
         $sql = "SELECT * FROM " . static::$db_table
             . " WHERE id = {$database->escape_string($id)} LIMIT 1";
 
-        $result_set = static::find_this_query($sql);
+        $result_set = static::find_by_query($sql);
         //var_dump($result_sets);
 
         return !empty($result_set) ? array_shift($result_set) : new User();
@@ -86,7 +117,7 @@ class Db_object
 
     public static function find_all()
     {
-         return static::find_this_query("SELECT * FROM " . static::$db_table);
+         return static::find_by_query("SELECT * FROM " . static::$db_table);
     }
 
 }

@@ -24,12 +24,24 @@
 
 <?php
     include("includes/User.php");
-
+/*
     $users = User::find_all();
     foreach ($users as $user) {
         echo $user->username . '<br/>';
     }
+*/
 
+/*
+    $user = new User();
+    $user->username = "NEW_USER";
+    $user->save();
+*/
+
+//    $photos = Photo::find_all();
+//
+//    foreach ($photos as $photo) {
+//        echo $photo->title;
+//    }
 
 
 ?>

@@ -9,9 +9,12 @@
 
 class User extends Db_object
 {
+    /*Table that this object maps to.*/
     protected static $db_table = "users";
-    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
 
+
+    /* Array we used to iterate over the properties of the class. */
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
     // Properties or Attributes of the User class.
     public $id;
     public $username;
@@ -32,43 +35,16 @@ class User extends Db_object
                 . " AND password = '$password' "
                 . " LIMIT 1";
 
-
-        $result = self::find_this_query($sql);
+        $result = self::find_by_query($sql);
 
         return !empty($result) ? array_shift($result) : false;
     }
 
 
-    
-
-
-    protected function properties()
-    {
-
-        $properties = array();
-        foreach (self::$db_table_fields as $db_field) {
-            if (property_exists($this, $db_field)) {
-                $properties[$db_field] = $this->$db_field;
-            }
-        }
-
-        return $properties;
-    }
 
 
 
-    protected function clean_properties()
-    {
-        global $database;
 
-        $clean_properties = array();
-
-        foreach ($this->properties() as $key => $value) {
-            $clean_properties[$key] = $database->escape_string($value);
-        }
-
-        return $clean_properties;
-    }
 
     // <----------------------------------------------------
     //              CRUD STUFF

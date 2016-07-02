@@ -72,12 +72,31 @@ class Photo extends Db_object
             $this->type     = $file['type'];
             $this->size     = $file['size'];
         }
-
-
-
     }
+    /**
+     * Update or create a user.
+     */
+    public function save()
+    {
+        // photo_id already exists
+        if ($this->photo_id) {
+            $this->update();
+        }
+        // photo_id does not already exist.
+        else {
 
+            if (!empty($this->errors)) {
+                return false;
+            }
 
+            if (empty($this->filename) || empty($this->tmp_path)) {
+                $this->errors[] = "the file was not available.";
+                return false;
+            }
+
+            $this->create();
+        }
+    }
 
 
 

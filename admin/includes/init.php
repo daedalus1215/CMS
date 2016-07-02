@@ -2,8 +2,8 @@
 
 
 (defined('DS')) ? null : define('DS', DIRECTORY_SEPARATOR);
-
-define('SITE_ROOT', DS.'Applications'.DS.'XAMPP');
+echo __DIR__;
+define('SITE_ROOT', DS.'Applications'.DS.'XAMPP'.DS.'htdocs'.DS.'html'.DS.'CMS');
 
 define('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT.DS.'admin'.DS.'includes');
 

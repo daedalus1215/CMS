@@ -37,11 +37,11 @@
     $user->save();
 */
 
-//    $photos = Photo::find_all();
-//
-//    foreach ($photos as $photo) {
-//        echo $photo->title;
-//    }
+    $photos = Photo::find_all();
+
+    foreach ($photos as $photo) {
+        echo $photo->title;
+    }
 
 
 ?>

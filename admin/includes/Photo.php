@@ -115,6 +115,7 @@ class Photo extends Db_object
     }
 
     
+    
     public function create()
     {
         global $database;
@@ -132,7 +133,8 @@ class Photo extends Db_object
             return false;
         }
     }
-    
+
+
     public function update()
     {
         global $database;
@@ -151,6 +153,19 @@ class Photo extends Db_object
         $database->query($sql);
 
         return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+    }
+
+
+    public function delete()
+    {
+        global $database;
+
+        $sql = "DELETE FROM " . self::$db_table
+            . " WHERE id = {$database->escape_string($this->id)} "
+            . " LIMIT 1";
+
+        $database->query($sql);
+        return (mysqli_affected_rows($database->getConnection())) ? true : false;
     }
 
 

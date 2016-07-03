@@ -23,6 +23,7 @@
 
 ?>
         <?php print_r($message); ?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <?php include("includes/top_nav.php"); ?>

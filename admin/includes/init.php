@@ -5,7 +5,7 @@
 
 define('SITE_ROOT', 'C:'.DS.'XAMPP'.DS.'htdocs'.DS.'html'.DS.'CMS');
 
-define('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT.DS.'admin'.DS.'includes');
+defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT.DS.'admin'.DS.'includes');
 
 
 // no idea, but it broke unless I do __DIR__

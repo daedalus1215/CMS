@@ -94,32 +94,11 @@ class Photo extends Db_object
                 return false;
             }
 
-            SITE_PATH . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename
+            $target_path = SITE_PATH . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename;
 
             $this->create();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

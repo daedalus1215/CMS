@@ -3,7 +3,8 @@
 
 (defined('DS')) ? null : define('DS', DIRECTORY_SEPARATOR);
 
-define('SITE_ROOT', 'C:'.DS.'XAMPP'.DS.'htdocs'.DS.'html'.DS.'CMS');
+//define('SITE_ROOT', 'C:'.DS.'XAMPP'.DS.'htdocs'.DS.'html'.DS.'CMS');
+define('SITE_ROOT', DS.'var'.DS.'www'.DS.'html'.DS.'1776'.DS.'CMS');
 
 defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT.DS.'admin'.DS.'includes');
 

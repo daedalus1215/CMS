@@ -74,11 +74,11 @@ class Photo extends Db_object
         }
     }
     /**
-     * Update or create a user.
+     * Update or create a photo.
      */
     public function save()
     {
-        // photo_id already exists
+        // photo_id already exists - lets update just update.
         if ($this->photo_id) {
             $this->update();
         }
@@ -95,8 +95,22 @@ class Photo extends Db_object
             }
 
             $target_path = SITE_PATH . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename;
+            // because sometimes there is a file already there.
+            if (file_exists($target_path)) {
+                $this->errors[] = "The file {$this->filename} already exists";
+                return false;
+            }
 
-            $this->create();
+            if (move_uploaded_file($this->tmp_path, $target_path)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+                else {
+                    $this->errors[] = "Moving the file over had an issue - it maybe because you do not have permissions.";
+                    return false;
+                }
+            }
         }
     }
 

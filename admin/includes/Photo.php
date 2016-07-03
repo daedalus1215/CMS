@@ -12,7 +12,6 @@ class Photo extends Db_object
     protected static $db_table = "photos";
     /* Array we used to iterate over the properties of the class. */
     protected static $db_table_fields = array(
-        'photo_id',
         'title',
         'description',
         'filename',
@@ -115,6 +114,44 @@ class Photo extends Db_object
         }
     }
 
+    
+    public function create()
+    {
+        global $database;
+        $properties = $this->clean_properties();
+
+        $sql = "INSERT INTO " . self::$db_table
+                . " (" . implode(", ", array_keys($properties)) . ") ";
+        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
+
+        // running the query and grabbing the id of the last inserted query.
+        if ($database->query($sql)) {
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function update()
+    {
+        global $database;
+
+        $properties = $this->clean_properties();
+        $properties_pairs = array();
+
+        foreach ($properties as $key => $value) {
+            $properties_pairs[$key] = "{$key} = '{$value}'";
+        }
+
+        $sql = "UPDATE " . self::$db_table. " SET "
+                . implode(",", $properties_pairs)
+                . " WHERE id = {$database->escape_string($this->id)}";
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+    }
 
 
 }

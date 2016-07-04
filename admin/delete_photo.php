@@ -4,21 +4,20 @@
 
 <?php 
 
-if (empty($_GET['photo_id'])) {
+if (empty($_GET['id'])) {
     redirect("../photos");
 }
 
-$photo = Photo::find_by_id(htmlspecialchars($_GET['photo_id']));
+$photo = Photo::find_by_id(htmlspecialchars($_GET['id']));
 
 if ($photo) {
-    $photo->delete();
+    $photo->delete_photo();
 } else {
-    redirect("photos");
+    redirect("../photos");
 }
-
 ?>
 
-
+<?php redirect("../admin/photos"); ?>
 
 
 <?php include("includes/footer.php"); ?>

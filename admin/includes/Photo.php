@@ -72,6 +72,17 @@ class Photo extends Db_object
             $this->size     = $file['size'];
         }
     }
+   
+    /**
+     * Retrieve upload directory and image name
+     * @return String: the path and filename of the picture we need to show.
+     */
+    public function picture_path() 
+    {
+        return $this->upload_directory.DS.$this->filename;
+    }
+    
+    
     /**
      * Update or create a photo.
      */

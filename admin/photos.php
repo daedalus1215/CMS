@@ -1,5 +1,16 @@
 <?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()) {redirect("login.php"); }?>
+<?php if(!$session->is_signed_in()) {redirect("login"); }?>
+
+<?php 
+
+$photos = Photo::find_all();
+
+?>
+
+
+
+
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <?php include("includes/top_nav.php"); ?>
@@ -41,12 +52,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($photos as $photo):?>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <td><img src="<?php echo $photo->picture_path(); ?>" alt="" style="width: 62px; height: 62px;"></td>
+                                        <td><?php echo $photo->id; ?></td>
+                                        <td><?php echo $photo->filename; ?></td>
+                                        <td><?php echo $photo->title; ?></td>
+                                        <td><?php echo $photo->size; ?></td>
                                     </tr>                                
+                                    <?php endforeach; ?>    
+                                       
                                 </tbody>
                             </table>                                                                                   
                         </div>

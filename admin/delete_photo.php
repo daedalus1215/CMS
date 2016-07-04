@@ -3,18 +3,19 @@
 <?php if(!$session->is_signed_in()) { redirect("login"); } ?>
 
 <?php 
+    // If ID is not set
+    if (empty($_GET['id'])) {
+        redirect("../photos");
+    }
 
-if (empty($_GET['id'])) {
-    redirect("../photos");
-}
+    $photo = Photo::find_by_id(htmlspecialchars($_GET['id']));
 
-$photo = Photo::find_by_id(htmlspecialchars($_GET['id']));
-
-if ($photo) {
-    $photo->delete_photo();
-} else {
-    redirect("../photos");
-}
+    // Let's make sure we got a Photo and title isn't an empty string.
+    if ($photo && $photo->title != '') {
+        $photo->delete_photo();
+    } else {
+        redirect("../photos");
+    }
 ?>
 
 <?php redirect("../admin/photos"); ?>

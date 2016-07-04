@@ -7,7 +7,8 @@
         
         $photo = new Photo();
         $photo->title = htmlspecialchars($_POST['title']);
-        print_r($_FILES['file_upload']);
+//        print ("Upload.php - The file that was uploaded: </br>");
+//        print_r($_FILES);
         $photo->set_file($_FILES['file_upload']);        
         
         if ($photo->save()) {

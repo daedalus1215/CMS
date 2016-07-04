@@ -11,8 +11,7 @@ class Photo extends Db_object
     /*Table that this object maps to.*/
     protected static $db_table = "photos";
     /* Array we used to iterate over the properties of the class. */
-    protected static $db_table_fields = array(
-        'id',
+    protected static $db_table_fields = array(        
         'title',
         'description',
         'filename',
@@ -99,7 +98,8 @@ class Photo extends Db_object
             if (!empty($this->errors)) {
                 return false;
             }
-
+//            echo "Photo debug - filename= $this->filename";
+//            echo "Photo debug - tmp path= $this->tmp_path";
             if (empty($this->filename) || empty($this->tmp_path)) {
                 $this->errors[] = "the file was not available.";
                 return false;
@@ -134,9 +134,8 @@ class Photo extends Db_object
         $properties = $this->clean_properties();
 
         $sql = "INSERT INTO " . self::$db_table
-                . " (" . implode(", ", array_keys($properties)) . ") ";
-        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
-
+                . " (`" . implode("`,`", array_keys($properties)) . "`) ";
+        $sql .= "VALUES ('". implode("','", array_values($properties)) . "')";
         // running the query and grabbing the id of the last inserted query.
         if ($database->query($sql)) {
             $this->id = $database->the_insert_id();

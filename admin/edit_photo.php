@@ -3,24 +3,39 @@
 
 <?php 
     
-    // Make sure we have a photo id and that it is not invalid.
-    if (empty($_GET['id'])) {
+    // see if the user has submitted the edit form.
+    if (isset($_POST['update'])) {
+        // instantiating a existing photo object.
+        $photo = Photo::find_by_id(trim(htmlspecialchars($_POST['id'])));
+                
+        // if update did occur.
+        if (isset($_POST['update'])) {
+            // if we successfully instantiated a photo object.
+            if ($photo) {
+                $photo->title           = $_POST['title'];
+                $photo->alternate_text  = $_POST['alternate_text'];
+                $photo->caption         =$_POST['caption'];
+                $photo->description     = $_POST['description'];
+                $photo->save();
+                redirect('photos');
+            }
+        }        
+    }
+    // User did not submit the edit form but entered by clicking on a photo 
+    else if (empty($_GET['id'])) {
         redirect('photos');
     } else {
         // instantiating a existing photo object.
         $photo = Photo::find_by_id(trim(htmlspecialchars($_GET['id'])));
                 
-        // if update did occur.
-        if (isset($_POST['update'])) {
             // if we successfully instantiated a photo object.
             if ($post) {
                 $photo->title           = $_POST['title'];
                 $photo->alternate_text  = $_POST['alternate_text'];
                 $photo->caption         =$_POST['caption'];
-                $photo->description     = $_POST['description'];
+                $photo->description     = $_POST['description'];                
             }
-        }
-        
+     
     }
 
 
@@ -70,12 +85,13 @@
                         <div class="col-md-8">
                             <form method="post" action="edit_photo.php">
                                 <div class="form-group">
-                                    <input name="title" type="text" class="form-control"></input>
+                                    <label for="title">Title</label>
+                                    <input name="title" type="text" class="form-control" value="<?php echo $photo->title;?>"></input>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="title">Caption</label>
-                                    <input name="caption" type="text" class="form-control" value="<?php echo $photo->title;?>"/>
+                                    <label for="caption">Caption</label>
+                                    <input name="caption" type="text" class="form-control"/>
                                 </div>
 
                                 <div class="form-group">
@@ -84,12 +100,14 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="image">Image</label>
                                    <input name="image" type="text" class="form-control"/>
                                 </div>
 
                                 <div for="description" class="form-group"><label>Description</label>                                
                                     <textarea name="description" cols="30" rows="10" class="form-control"><?php echo $photo->description;?></textarea>
                                 </div>
+                                <input type="hidden" name="id" value="<?php echo $photo->id; ?>">
                         </div>
                     
                     

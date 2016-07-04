@@ -17,7 +17,7 @@ class Photo extends Db_object
         'filename',
         'type',
         'size',
-        'alternative_text',
+        'alternate_text',
         'caption'
     );
     
@@ -27,7 +27,7 @@ class Photo extends Db_object
     public $filename;
     public $type;
     public $size;
-    public $alternative_text;
+    public $alternate_text;
     public $caption;
     
     

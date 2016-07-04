@@ -16,16 +16,21 @@ class Photo extends Db_object
         'description',
         'filename',
         'type',
-        'size'
+        'size',
+        'alternative_text',
+        'caption'
     );
-
+    
     public $id;
     public $title;
     public $description;
     public $filename;
     public $type;
     public $size;
-
+    public $alternative_text;
+    public $caption;
+    
+    
     public $tmp_path;
     public $upload_directory = "images";
 

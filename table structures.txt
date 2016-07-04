@@ -6,6 +6,8 @@ description text
 filename varchar(255)
 type varchar(255)
 size(11)
+caption varchar(255)
+alternate_text varchar(255)
 
 
 

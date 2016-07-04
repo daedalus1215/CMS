@@ -29,22 +29,32 @@
                             </li>
                         </ol>
                     
-                    <div class="">
+                    <div class="col-md-8">
                         <form>
                             <div class="form-group">
-                                <input name="title" type="text"/>
+                                <input name="title" type="text" class="form-control"></input>
                             </div>
+                            
                             <div class="form-group">
-                                <input name="image" type="text"/>
+                                <label for="title">Caption</label>
+                                <input name="caption" type="text" class="form-control"/>
                             </div>
+                            
                             <div class="form-group">
-                                <input name="image" type="text"/>
+                                <label for="alternate_text">Alternative Text</label>                                
+                                <input name="alternate_text" type="text" class="form-control"/>
                             </div>
+                                                        
                             <div class="form-group">
-                               <input name="image" type="text"/>
+                               <input name="image" type="text" class="form-control"/>
                             </div>
+                            
                             <div class="form-group">
-                                <input name="image" type="text"/>
+                                <input name="image" type="text" class="form-control"/>
+                            </div>
+                                                        
+                            <div for="description" class="form-group"><label>Description</label>                                
+                                <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
                             </div>
                         </form>
                     </div>

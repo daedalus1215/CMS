@@ -3,10 +3,29 @@
 <?php if(!$session->is_signed_in()) { redirect("login"); } ?>
 
 <?php 
-
-    if (isset($_POST['update'])) {
-        echo "YES IT WORKS";
+    
+    // Make sure we have a photo id and that it is not invalid.
+    if (empty($_GET['id']) || trim(htmlspecialchars($_GET['id'])) != '') {
+        redirect('photos');
+    } else {
+        // instantiating a existing photo object.
+        $photo = User::find_by_id(trim(htmlspecialchars($_GET['id'])));
+        // if update did occur.
+        if (isset($_POST['update'])) {
+            // if we successfully instantiated a photo object.
+            if ($post) {
+                $_POST['title'];
+                $_POST['alternate_text'];
+                $_POST['caption'];
+                $_POST['description'];
+                $_POST[''];
+                $_POST[''];
+                $_POST[''];
+            }
+        }
+        
     }
+
 
 
 ?>

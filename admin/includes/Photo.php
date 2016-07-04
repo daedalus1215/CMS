@@ -12,6 +12,7 @@ class Photo extends Db_object
     protected static $db_table = "photos";
     /* Array we used to iterate over the properties of the class. */
     protected static $db_table_fields = array(
+        'id',
         'title',
         'description',
         'filename',
@@ -177,6 +178,25 @@ class Photo extends Db_object
 
         $database->query($sql);
         return (mysqli_affected_rows($database->getConnection())) ? true : false;
+    }
+    
+    
+    /**
+     * Retrieve a user by their id.
+     * @global Database $database
+     * @param Integer $id, a user's id.
+     * @return User object of the user.
+     */
+    public static function find_by_id($id)
+    {
+        global $database;
+        $sql = "SELECT * FROM " . static::$db_table
+            . " WHERE id = {$database->escape_string($id)} LIMIT 1";
+
+        $result_set = static::find_by_query($sql);
+        //var_dump($result_sets);
+
+        return !empty($result_set) ? array_shift($result_set) : new Photo();
     }
 
 

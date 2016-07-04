@@ -1,8 +1,18 @@
 photos
 
-photo_id int(11)
+id int(11)
 title varchar(255)
 description text
 filename varchar(255)
 type varchar(255)
 size(11)
+
+
+
+users
+
+id int(11)
+username varchar(255)
+first_name varchar(255)
+last_name varchar(255)
+password varchar(255)

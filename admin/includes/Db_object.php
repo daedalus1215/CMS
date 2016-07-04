@@ -95,26 +95,7 @@ class Db_object
         return $the_object_array;
     }
 
-
-    /**
-     * Retrieve a user by their id.
-     * @global Database $database
-     * @param Integer $id, a user's id.
-     * @return User object of the user.
-     */
-    public static function find_by_id($id)
-    {
-        global $database;
-        $sql = "SELECT * FROM " . static::$db_table
-            . " WHERE id = {$database->escape_string($id)} LIMIT 1";
-
-        $result_set = static::find_by_query($sql);
-        //var_dump($result_sets);
-
-        return !empty($result_set) ? array_shift($result_set) : new User();
-    }
-
-
+    
     public static function find_all()
     {
          return static::find_by_query("SELECT * FROM " . static::$db_table);

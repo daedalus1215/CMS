@@ -5,7 +5,7 @@
 <?php 
 
 if (empty($_GET['photo_id'])) {
-    redirect("photos");
+    redirect("../photos");
 }
 
 $photo = Photo::find_by_id(htmlspecialchars($_GET['photo_id']));

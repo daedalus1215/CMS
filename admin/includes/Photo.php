@@ -19,7 +19,7 @@ class Photo extends Db_object
         'size'
     );
 
-    public $photo_id;
+    public $id;
     public $title;
     public $description;
     public $filename;
@@ -88,11 +88,11 @@ class Photo extends Db_object
      */
     public function save()
     {
-        // photo_id already exists - lets update just update.
-        if ($this->photo_id) {
+        // id already exists - lets update just update.
+        if ($this->id) {
             $this->update();
         }
-        // photo_id does not already exist.
+        // id does not already exist.
         else {
 
             if (!empty($this->errors)) {

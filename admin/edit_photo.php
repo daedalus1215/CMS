@@ -101,7 +101,8 @@
 
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                   <input name="image" type="text" class="form-control"/>
+                                    <a  style="height: 100px; width: 100px;" href="#" src="<?php echo $photo->picture_path(); ?>" ></a>
+                                    <img class="thumbnail" src="<?php echo $photo->picture_path(); ?>" alt="<?php echo $photo->alternate_text; ?>" />
                                 </div>
 
                                 <div for="description" class="form-group"><label>Description</label>                                

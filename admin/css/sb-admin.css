@@ -286,5 +286,8 @@ padding: 10px;
     border-radius: 5px;
 }
 
-
-
+/*************************************************** USER PAGE */
+.admin-user-thumbnail {
+    width: 63px;
+    height: 63px;
+}

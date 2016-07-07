@@ -48,6 +48,7 @@ class Database
     public function escape_string($string)
     {
         $escaped_string = $this->connection->real_escape_string($string);
+        //echo "Database->escape_string() : called with " . $escaped_string . " passed!<br/>";
         return $escaped_string;
     }
 

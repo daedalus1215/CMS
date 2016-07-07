@@ -78,11 +78,23 @@ class User extends Db_object
     //              CRUD STUFF
     // <----------------------------------------------------
     public function save()
-     {
+    {
         return isset($this->id) ? $this->update() : $this->create();
-     }
-
-
+    }
+          
+    public function delete()
+    {
+        global $database;
+        $d = self::$db_table;
+        $sql = "DELETE FROM " . self::$db_table
+            . " WHERE `id` = {$database->escape_string($this->id)} "
+            . " LIMIT 1";
+        $database->query($sql);
+        return (mysqli_affected_rows($database->getConnection())) ? true : false;
+    }
+    
+    
+    
 //    public function create()
 //    {
 //        global $database;
@@ -136,4 +148,3 @@ class User extends Db_object
 //    }
 
 } // End of class User
-

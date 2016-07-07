@@ -44,26 +44,14 @@
         echo $photo->title;
     }
     */
-
+    
+    /*
+        $user = User::find_by_id(2);
+        echo "username = " . $user->username;
+        $result = $user->delete();
+        echo $result;
+    */
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

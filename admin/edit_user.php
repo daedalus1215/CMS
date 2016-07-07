@@ -2,12 +2,13 @@
 <?php if(!$session->is_signed_in()) { redirect("login"); } ?>
 
 <?php 
-    
-    // See if the user has submitted the edit form.
-    if (isset($_POST['create'])) {
-        // instantiating a new user object.
-        $user = new User();
-                        
+
+    $debug = ""; 
+    // see if the user has submitted the edit form.
+    if (isset($_POST['update'])) {
+        // instantiating a existing photo object.
+        $user = User::find_by_id(trim(htmlspecialchars($_GET['id'])));
+
         // if we successfully instantiated a photo object.
         if ($user) {
             $user->first_name = htmlspecialchars($_POST['first_name']);
@@ -17,8 +18,20 @@
             $user->set_file($_FILES['user_image']);
             $user->save_user_and_image();
             redirect('users');
-        }
-    }        
+        }        
+    }
+    // User did not submit the edit form but entered by clicking on a photo 
+    if (empty($_GET['id'])) {
+        redirect('users');
+    } else {
+        // instantiating a existing photo object.
+        $user = User::find_by_id(trim(htmlspecialchars($_GET['id'])));
+                
+        // if we successfully instantiated a photo object.          
+    }
+
+
+
 ?>
 
 
@@ -37,7 +50,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        ADD USER
+                        ADMIN
                         <small>Subheading</small>
                     </h1>
                         <ol class="breadcrumb">
@@ -49,23 +62,30 @@
                             </li>
                         </ol>
                 </div>
-                        <!--Shorten  center-->
-                <div class="col-md-6 col-md-offset-3">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                         <!--Shorten  center-->
+                <div class="col-md-6  col-md-offset-3">
                     <form method="post" action="" enctype="multipart/form-data">                                                               
                         <div class="form-group">
                             <label for="first_name">First Name</label>
-                            <input name="first_name" type="text" class="form-control"/>
+                            <input name="first_name" type="text" class="form-control" value="<?php $user->first_name ;?>"/>
                         </div>
 
                         <div class="form-group">
                             <label for="caption">Last Name</label>
-                            <input name="last_name" type="text" class="form-control"/>
+                            <input name="last_name" type="text" class="form-control" value="<?php $user->last_name ;?>"/>
                         </div>                                                          
 
 
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input name="username" type="text" class="form-control"/>
+                            <input name="username" type="text" class="form-control" value="<?php $user->username ;?>"/>
                         </div>
 
                        <div class="form-group">
@@ -78,10 +98,10 @@
                         </div>
                         
                         <div class="form-group">
-                            <input name="create" value="Submit" type="submit" class="btn btn-primary pull-right">
+                            <input name="update" value="Update" type="submit" class="btn btn-primary pull-right">
                         </div>
                     </form>                    
-                </div>
+                </div>                   
             </div>
             <!-- /.row -->
         </div>

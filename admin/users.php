@@ -26,9 +26,11 @@ $users = User::find_all();
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            PHOTOS
+                            USERS
                             <small>Subheading</small>
                         </h1>
+                        <a href="add_user.php">Add user</a>
+                        
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

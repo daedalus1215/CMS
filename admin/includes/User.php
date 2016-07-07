@@ -26,7 +26,30 @@ class User extends Db_object
     public $upload_directory = "images";
     public $image_placeholder = "http://placehold.it/400x400&text=image";
 
-
+    // Properties that relate to the file specifically.
+    public $tmp_path;
+    public $size;
+    public $type;
+    
+    /*Custom errors*/
+    public $errors = array();
+    /*Common upload errors*/
+    public $upload_errors = array(
+        UPLOAD_ERR_OK           => "There is no error",
+        UPLOAD_ERR_INI_SIZE     => "The uploaded file exceeds the upload_max_filesize directive.",
+        UPLOAD_ERR_FORM_SIZE    => 'The upload file exceeds the MAX_FILE_SIZE directive',
+        UPLOAD_ERR_PARTIAL      => 'The uploaded file was only partially uploaded',
+        UPLOAD_ERR_NO_FILE      => 'No file was uploaded.',
+        UPLOAD_ERR_NO_TMP_DIR   => 'Missing a temporary folder.',
+        UPLOAD_ERR_CANT_WRITE   => 'Failed to write file to disk.',
+        UPLOAD_ERR_EXTENSION    => 'A PHP extension stopped the file upload.'
+    );
+    
+    
+    
+    
+    
+    
     public function getImage() 
     {
         return empty($this->user_image) ? $this->image_placeholder : $this->upload_directory.DS.$this->user_image;
@@ -72,15 +95,92 @@ class User extends Db_object
     }
 
 
+/**
+     * Set the name of the file and not the location of where it is.
+     * 
+     *
+     * sets the user object's properties as well.
+     *
+     * @param $_FILES $file: is the $_FILES superglobal, e.g. $_FILES['user_image'].
+     */
+    public function set_file($file)
+    {
 
+        // error when method was called, no file was passed in.
+        if (empty($file) || !$file || !is_array($file)) {
+            $this->errors[] = "There was no file uploaded here";
+            return false;
+        }
+        // error flagged.
+        elseif($file['errors'] != 0) {
+            $this->errors[] = $this->upload_errors_array($file['error']);
+            return false;
+        }
+        // No errors - set properties
+        else {
+            $this->user_image = basename($file['name']);
+            $this->tmp_path = $file['tmp_name'];
+            $this->type     = $file['type'];
+            $this->size     = $file['size'];
+        }
+    }
+    
+    
+    /**
+     * Update or create a photo.
+     */
+    public function save_user_and_image()
+    {
+        // id already exists - lets update just update.
+        if ($this->id) {
+            $this->update();
+        }
+        // id does not already exist.
+        else {
+
+            if (!empty($this->errors)) {
+                return false;
+            }
+//            echo "Photo debug - user_image= $this->user_image";
+//            echo "Photo debug - tmp path= $this->tmp_path";
+            if (empty($this->user_image) || empty($this->tmp_path)) {
+                $this->errors[] = "the file was not available.";
+                return false;
+            }
+
+            $target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->user_image;
+            //echo "TaRGET PATH = " . $target_path;
+            // because sometimes there is a file already there.
+            if (file_exists($target_path)) {
+                $this->errors[] = "The file {$this->user_image} already exists";
+                return false;
+            }
+
+            if (move_uploaded_file($this->tmp_path, $target_path)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+                else {
+                    $this->errors[] = "Moving the file over had an issue - it maybe because you do not have permissions.";
+                    return false;
+                }
+            }
+        }
+    }
+    
+    
 
     // <----------------------------------------------------
     //              CRUD STUFF
     // <----------------------------------------------------
+    
+    
     public function save()
     {
         return isset($this->id) ? $this->update() : $this->create();
     }
+    
           
     public function delete()
     {
@@ -95,56 +195,44 @@ class User extends Db_object
     
     
     
-//    public function create()
-//    {
-//        global $database;
-//        $properties = $this->clean_properties();
-//
-//        $sql = "INSERT INTO " . self::$db_table
-//                . " (" . implode(", ", array_keys($properties)) . ") ";
-//        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
-//
-//        // running the query and grabbing the id of the last inserted query.
-//        if ($database->query($sql)) {
-//            $this->id = $database->the_insert_id();
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//
-//    public function update()
-//    {
-//        global $database;
-//
-//        $properties = $this->clean_properties();
-//        $properties_pairs = array();
-//
-//        foreach ($properties as $key => $value) {
-//            $properties_pairs[$key] = "{$key} = '{$value}'";
-//        }
-//
-//        $sql = "UPDATE " . self::$db_table. " SET "
-//                . implode(",", $properties_pairs)
-//                . " WHERE id = {$database->escape_string($this->id)}";
-//
-//        $database->query($sql);
-//
-//        return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
-//    }
-//
-//
-//    public function delete()
-//    {
-//        global $database;
-//
-//        $sql = "DELETE FROM " . self::$db_table
-//            . " WHERE id = {$database->escape_string($this->id)} "
-//            . " LIMIT 1";
-//
-//        $database->query($sql);
-//        return (mysqli_affected_rows($database->getConnection())) ? true : false;
-//    }
+    public function create()
+    {
+        global $database;
+        $properties = $this->clean_properties();
+
+        $sql = "INSERT INTO " . self::$db_table
+                . " (" . implode(", ", array_keys($properties)) . ") ";
+        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
+
+        // running the query and grabbing the id of the last inserted query.
+        if ($database->query($sql)) {
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    public function update()
+    {
+        global $database;
+
+        $properties = $this->clean_properties();
+        $properties_pairs = array();
+
+        foreach ($properties as $key => $value) {
+            $properties_pairs[$key] = "{$key} = '{$value}'";
+        }
+
+        $sql = "UPDATE " . self::$db_table. " SET "
+                . implode(",", $properties_pairs)
+                . " WHERE id = {$database->escape_string($this->id)}";
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+    }
+
 
 } // End of class User

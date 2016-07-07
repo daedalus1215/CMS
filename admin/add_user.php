@@ -3,25 +3,22 @@
 
 <?php 
     
-    // see if the user has submitted the edit form.
-    if (isset($_POST['update'])) {
-        // instantiating a existing photo object.
-        $photo = Photo::find_by_id(trim(htmlspecialchars($_POST['id'])));
-                
-        // if update did occur.
-        if (isset($_POST['update'])) {
-            // if we successfully instantiated a photo object.
-            if ($photo) {
-                $photo->title           = $_POST['title'];
-                $photo->alternate_text  = $_POST['alternate_text'];
-                $photo->caption         =$_POST['caption'];
-                $photo->description     = $_POST['description'];
-                $photo->save();
-                redirect('photos');
-            }
-        }        
-    }
-
+    // See if the user has submitted the edit form.
+    if (isset($_POST['create'])) {
+        // instantiating a new user object.
+        $user = new User();
+                        
+        // if we successfully instantiated a photo object.
+        if ($user) {
+            $user->first_name = htmlspecialchars($_POST['first_name']);
+            $user->last_name  = htmlspecialchars($_POST['last_name']);
+            $user->username   = htmlspecialchars($_POST['username']);
+            $user->password   = htmlspecialchars($_POST['password']);
+            $user->set_file($_FILES['user_image']);
+            $user->save_user_and_image();
+            redirect('users');
+        }
+    }        
 ?>
 
 
@@ -52,9 +49,9 @@
                             </li>
                         </ol>
                 </div>
-
-                <div class="col-md-8">
-                    <form method="post" action="" enctype="multipart">                                                               
+                        <!--Shorten  center-->
+                <div class="col-md-6 col-md-offset-3">
+                    <form method="post" action="" enctype="multipart/form-data">                                                               
                         <div class="form-group">
                             <label for="first_name">First Name</label>
                             <input name="first_name" type="text" class="form-control"/>
@@ -74,6 +71,14 @@
                        <div class="form-group">
                             <label for="password">Password</label>
                             <input name="password" type="password" class="form-control"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="file" name="user_image">
+                        </div>
+                        
+                        <div class="form-group">
+                            <input name="create" value="Submit" type="submit" class="btn btn-primary pull-right">
                         </div>
                     </form>                    
                 </div>

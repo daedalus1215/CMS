@@ -102,23 +102,7 @@ class Db_object
     }
 
     
-    public function create()
-    {
-        global $database;
-        $properties = $this->clean_properties();
-
-        $sql = "INSERT INTO " . self::$db_table
-                . " (" . implode(", ", array_keys($properties)) . ") ";
-        $sql .= "VALUES ( '". implode("','", array_values($properties)) . "')";
-
-        // running the query and grabbing the id of the last inserted query.
-        if ($database->query($sql)) {
-            $this->id = $database->the_insert_id();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 
 
     public function update()

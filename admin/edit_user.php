@@ -2,8 +2,11 @@
 <?php if(!$session->is_signed_in()) { redirect("login"); } ?>
 
 <?php 
-
-    $debug = ""; 
+    // if no id we shouldn't even be here.
+    if (empty($_GET['id'])) {
+        redirect('users');        
+    }
+    
     // see if the user has submitted the edit form.
     if (isset($_POST['update'])) {
         // instantiating a existing photo object.
@@ -21,9 +24,7 @@
         }        
     }
     // User did not submit the edit form but entered by clicking on a photo 
-    if (empty($_GET['id'])) {
-        redirect('users');
-    } else {
+     else {
         // instantiating a existing photo object.
         $user = User::find_by_id(trim(htmlspecialchars($_GET['id'])));
                 
@@ -74,18 +75,18 @@
                     <form method="post" action="" enctype="multipart/form-data">                                                               
                         <div class="form-group">
                             <label for="first_name">First Name</label>
-                            <input name="first_name" type="text" class="form-control" value="<?php $user->first_name ;?>"/>
+                            <input name="first_name" type="text" class="form-control" value="<?php echo $user->first_name ;?>"/>
                         </div>
 
                         <div class="form-group">
                             <label for="caption">Last Name</label>
-                            <input name="last_name" type="text" class="form-control" value="<?php $user->last_name ;?>"/>
+                            <input name="last_name" type="text" class="form-control" value="<?php echo $user->last_name ;?>"/>
                         </div>                                                          
 
 
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input name="username" type="text" class="form-control" value="<?php $user->username ;?>"/>
+                            <input name="username" type="text" class="form-control" value="<?php echo $user->username ;?>"/>
                         </div>
 
                        <div class="form-group">
@@ -94,7 +95,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <input type="file" name="user_image">
+                            <input type="file" name="user_image" >
                         </div>
                         
                         <div class="form-group">

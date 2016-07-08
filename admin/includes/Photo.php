@@ -11,7 +11,7 @@ class Photo extends Db_object
     /*Table that this object maps to.*/
     protected static $db_table = "photos";
     /* Array we used to iterate over the properties of the class. */
-    protected static $db_table_fields = array(        
+    protected static $db_table_fields = array(
         'title',
         'description',
         'filename',
@@ -20,7 +20,7 @@ class Photo extends Db_object
         'alternate_text',
         'caption'
     );
-    
+
     public $id;
     public $title;
     public $description;
@@ -29,8 +29,8 @@ class Photo extends Db_object
     public $size;
     public $alternate_text;
     public $caption;
-    
-    
+
+
     public $tmp_path;
     public $upload_directory = "images";
 
@@ -65,7 +65,7 @@ class Photo extends Db_object
             return false;
         }
         // error flagged.
-        elseif($file['errors'] != 0) {
+        elseif(!empty($file['errors']) && $file['errors'] != 0) {
             $this->errors[] = $this->upload_errors_array($file['error']);
             return false;
         }
@@ -77,17 +77,17 @@ class Photo extends Db_object
             $this->size     = $file['size'];
         }
     }
-   
+
     /**
      * Retrieve upload directory and image name
      * @return String: the path and filename of the picture we need to show.
      */
-    public function picture_path() 
+    public function picture_path()
     {
         return $this->upload_directory.DS.$this->filename;
     }
-    
-    
+
+
     /**
      * Update or create a photo.
      */
@@ -131,22 +131,22 @@ class Photo extends Db_object
         }
     }
 
-    
-    public function delete_photo() 
+
+    public function delete_photo()
     {
         if ($this->delete()) {
             $target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
-            // delete file from db 
-            // delete file from dir            
+            // delete file from db
+            // delete file from dir
             return unlink($target_path) ? true : false;
         } else {
             return false;
         }
     }
-    
-    
-    
-    
+
+
+
+
     public function create()
     {
         global $database;
@@ -197,8 +197,8 @@ class Photo extends Db_object
         $database->query($sql);
         return (mysqli_affected_rows($database->getConnection())) ? true : false;
     }
-    
-    
+
+
     /**
      * Retrieve a user by their id.
      * @global Database $database

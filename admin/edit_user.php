@@ -106,6 +106,7 @@
                         </div>
                         
                         <div class="form-group">
+                            <a href="delete_user.php?id=<?php echo $user->id; ?>" class="btn btn-danger">Delete</a>
                             <input name="update" value="Update" type="submit" class="btn btn-primary pull-right">
                         </div>
                     </form>                    

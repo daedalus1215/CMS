@@ -65,13 +65,15 @@
                 </div>
                     
                     
+                <div class="col-md-6">
+                    <img class="img-responsive" src="<?php echo $user->getImage(); ?>" alt="">
+                </div>    
                     
                     
                     
                     
-                    
-                         <!--Shorten  center-->
-                <div class="col-md-6  col-md-offset-3">
+                         <!--Shorten  center-   col-md-offset-3-->
+                <div class="col-md-6">
                     <form method="post" action="" enctype="multipart/form-data">                                                               
                         <div class="form-group">
                             <label for="first_name">First Name</label>

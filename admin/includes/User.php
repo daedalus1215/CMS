@@ -27,7 +27,7 @@ class User extends Db_object
     public $image_placeholder = "http://placehold.it/400x400&text=image";
 
     // Properties that relate to the file specifically.
-    public $tmp_path;
+    public $tmp_path; // tmp path for the image, before we move it. But it is also a flag when we go to save, whether we save user_image into the db.
     public $size;
     public $type;
     
@@ -133,6 +133,7 @@ class User extends Db_object
     {
         // id already exists - lets update just update.
         if ($this->id) {
+            $this->moveFiles();
             $this->update();
         }
         // id does not already exist.
@@ -148,6 +149,18 @@ class User extends Db_object
                 return false;
             }
 
+            $this->moveFiles();
+        }
+    }
+    
+    /**
+     * Used to move the tmp file into a permanent storage.
+     * @return boolean
+     */
+    public function moveFiles() 
+    {
+        // we call this function and it may not actually be prudent to do so, so we are checking if a tmp_path is saved.
+        if (!empty($this->tmp_path)) {
             $target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->user_image;
             //echo "TaRGET PATH = " . $target_path;
             // because sometimes there is a file already there.
@@ -157,18 +170,16 @@ class User extends Db_object
             }
 
             if (move_uploaded_file($this->tmp_path, $target_path)) {
-                if ($this->create()) {
-                    unset($this->tmp_path);
+                if ($this->save()) {                    
                     return true;
                 }
-                else {
+            }  else {
                     $this->errors[] = "Moving the file over had an issue - it maybe because you do not have permissions.";
                     return false;
                 }
-            }
         }
-    }
-    
+            
+        }
     
 
     // <----------------------------------------------------
@@ -219,8 +230,16 @@ class User extends Db_object
         global $database;
 
         $properties = $this->clean_properties();
-        $properties_pairs = array();
-
+        $properties_pairs = array();        
+        
+        // we want to make sure we remove user_image property from the $properties array if we dont even have a tmp_path,
+        // because there is nothing new to save for the user_image
+        if (empty($this->tmp_path)) {
+            unset($properties['user_image']);
+        } else {
+            unset($this->tmp_path);
+        }
+        
         foreach ($properties as $key => $value) {
             $properties_pairs[$key] = "{$key} = '{$value}'";
         }
@@ -230,8 +249,9 @@ class User extends Db_object
                 . " WHERE id = {$database->escape_string($this->id)}";
 
         $database->query($sql);
-
-        return (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+        
+        $isTrue = (mysqli_affected_rows($database->getConnection()) == 1) ? true : false;
+        return $isTrue;
     }
 
 

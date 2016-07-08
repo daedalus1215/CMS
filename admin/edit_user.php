@@ -18,8 +18,10 @@
             $user->last_name  = htmlspecialchars($_POST['last_name']);
             $user->username   = htmlspecialchars($_POST['username']);
             $user->password   = htmlspecialchars($_POST['password']);
-            $user->set_file($_FILES['user_image']);
-            $user->save_user_and_image();
+            if (!empty($_FILES['user_image'])) {
+                $user->set_file($_FILES['user_image']);
+            }
+            $user->save_user_and_image();                
             redirect('users');
         }        
     }
@@ -28,7 +30,10 @@
         // instantiating a existing photo object.
         $user = User::find_by_id(trim(htmlspecialchars($_GET['id'])));
                 
-        // if we successfully instantiated a photo object.          
+        // if we didn't successfully instantiated a photo object.          
+        if (!$user) {
+            redirect('users');
+        }
     }
 
 
@@ -93,7 +98,7 @@
 
                        <div class="form-group">
                             <label for="password">Password</label>
-                            <input name="password" type="password" class="form-control"/>
+                            <input name="password" type="password" class="form-control" value="<?php echo $user->password; ?>"/>
                         </div>
                         
                         <div class="form-group">

@@ -24,7 +24,8 @@ class Db_object
         UPLOAD_ERR_CANT_WRITE   => 'Failed to write file to disk.',
         UPLOAD_ERR_EXTENSION    => 'A PHP extension stopped the file upload.'
     );
-
+    
+    
     /**
      * Check to see if this String matches the object's attribute or property
      * @param String $the_attribute of a property this object should have.

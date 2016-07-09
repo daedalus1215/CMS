@@ -1,21 +1,29 @@
 photos
 
-id int(11)
-title varchar(255)
-description text
-filename varchar(255)
-type varchar(255)
-size(11)
-caption varchar(255)
-alternate_text varchar(255)
+id              INT(11)
+title           VARCHAR(255)
+description     TEXT
+filename        VARCHAR(255)
+type            VARCHAR(255)
+size            INT(11)
+caption         VARCHAR(255)
+alternate_text  VARCHAR(255)
 
 
 
 users
 
-id int(11)
-username varchar(255)
-first_name varchar(255)
-last_name varchar(255)
-password varchar(255)
-user_image varchar(255)
+id          INT(11)
+username    VARCHAR(255)
+first_name  VARCHAR(255)
+last_name   VARCHAR(255)
+password    VARCHAR(255)
+user_image  VARCHAR(255)
+
+
+comments
+
+id          INT(11)
+photo_id    INT(11)
+author      VARCHAR(255)
+body        TEXT

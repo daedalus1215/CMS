@@ -1,20 +1,19 @@
 <?php include("includes/header.php"); ?>
 
-<?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
-
 <?php 
 /**
- * We get here via comments.php.
- * Admin decided to delete a comment, out of a list of comments.
+ * Coming to this page via comment_photo.php.
+ * The user clicks to delete a comment from the list of comments related to the
+ * photo.
  */
-
 
 ?>
 
+<?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
 <?php 
     // If ID is not set
-    if (empty($_GET['id'])) {
+    if (empty($_GET['id'] || empty($_GET['photo_id']))) {
         redirect("../comments.php");
     }
 
@@ -24,11 +23,11 @@
     if ($comment) {
         $comment->delete();
     } else {
-        redirect("../comments.php");
+        redirect("comment_photo.php?id={$_GET['photo_id']}");
     }
 ?>
 
-<?php redirect("../admin/comments.php"); ?>
+<?php redirect("comment_photo.php?id={$_GET['photo_id']}"); ?>
 
 
 <?php include("includes/footer.php"); ?>

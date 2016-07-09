@@ -52,10 +52,13 @@ $photos = Photo::find_all();
                                         <th>File Name</th>
                                         <th>Title</th>
                                         <th>Size</th>
+                                        <th>Comments</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
                                     <?php foreach ($photos as $photo):?>
+                                    <?php $comments = Comment::find_the_comments($photo->id); ?>
                                     <tr>
                                         <td><img class="admin-photo-thumbnail" src="<?php echo $photo->picture_path(); ?>" alt="">
                                             <div class="picture_link">
@@ -69,6 +72,7 @@ $photos = Photo::find_all();
                                         <td><?php echo $photo->filename; ?></td>
                                         <td><?php echo $photo->title; ?></td>
                                         <td><?php echo $photo->size; ?></td>
+                                        <td><a href="comment_photo.php?id=<?php echo $photo->id?>"><?php echo count($comments); ?></a></td>
                                     </tr>   
                                     
                                     <?php endforeach; ?>    

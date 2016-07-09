@@ -6,7 +6,6 @@ class Comment extends Db_object
     /*Table that this object maps to.*/
     protected static $db_table = "comments";
 
-
     /* Array we used to iterate over the properties of the class. */
     protected static $db_table_fields = array('$photo_id', '$author', '$body');
     
@@ -82,4 +81,5 @@ class Comment extends Db_object
         return !empty($result_set) ? array_shift($result_set) : new Comment();
     }
 
-} // End of class User
+
+}

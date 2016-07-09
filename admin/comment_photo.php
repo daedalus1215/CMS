@@ -7,9 +7,10 @@ if (empty($_GET['id'])) {
     redirect("photos.php");
 }
 
+$photo_id = $_GET['id'];
 
 // grab comments with the photo_id belonging to the photo we selected.
-$comments = Comment::find_the_comments($_GET['id']);
+$comments = Comment::find_the_comments($photo_id);
 
 ?>
 
@@ -59,7 +60,7 @@ $comments = Comment::find_the_comments($_GET['id']);
                                             <?php echo $comment->id; ?>
                                             <!-- Control of each one. -->
                                             <div class="picture_link">
-                                                <a href="delete_comment.php?id=<?php echo $comment->id; ?>">Delete</a>
+                                                <a href="delete_comment_photo.php?id=<?php echo $comment->id; ?>&photo_id=<?php echo $photo_id;?>">Delete</a>
                                                 <a href="edit_comment.php?id=<?php echo $comment->id; ?>">Edit</a>
                                                 <a href="view_comment.php?id=<?php echo $comment->id; ?>">View</a>
                                             </div>

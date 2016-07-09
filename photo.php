@@ -24,13 +24,13 @@ if (isset($_POST['submit'])) {
                 $message = "issue with saving.";
                 echo $message;
             }
-    }
- 
-    
-    
+    }     
+} else {
+    $arthur = "";
+    $body = "";
 }
 
-
+$comments = Comment::find_the_comments($photo->id);
 
 
 ?>
@@ -174,7 +174,22 @@ if (isset($_POST['submit'])) {
 
                 <!-- Posted Comments -->
 
-              
+                <?php foreach ($comments as $comment) :?>
+                
+                <!-- Comment -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><?php echo $comment->author; ?>
+                            <small><?php echo $comment->body; ?></small>
+                        </h4>
+                        
+                    </div>
+                </div>
+                
+              <?php endforeach;?>
 
             </div>
 

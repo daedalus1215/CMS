@@ -38,6 +38,9 @@ $photos = Photo::find_all();
                             </li>
                         </ol>
                         
+                        <div>
+                            <a href="upload.php">Add Photo</a>
+                        </div>
                         
                         
                         <div class="col-md-12">
@@ -58,7 +61,7 @@ $photos = Photo::find_all();
                                             <div class="picture_link">
                                                 <a href="delete_photo.php?id=<?php echo $photo->id; ?>">Delete</a>
                                                 <a href="edit_photo.php?id=<?php echo $photo->id; ?>">Edit</a>
-                                                <a href="view_photo.php?id=<?php echo $photo->id; ?>">View</a>
+                                                <a href="../photo.php?id=<?php echo $photo->id; ?>">View</a>
                                                 <a href="comment_photo.php?id=<?php echo $photo->id; ?>">Comments</a>
                                             </div>
                                         </td>                                                                                

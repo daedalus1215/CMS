@@ -2,6 +2,6 @@
 
 <?php
     $session->logout();
-    redirect('login');
+    redirect('login.php');
 ?>
 

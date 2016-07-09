@@ -8,7 +8,7 @@ class Comment extends Db_object
 
 
     /* Array we used to iterate over the properties of the class. */
-    protected static $db_table_fields = array('$id', '$photo_id', '$author', '$body');
+    protected static $db_table_fields = array('$photo_id', '$author', '$body');
     
     // Properties or Attributes of the User class.
     public $id;
@@ -19,17 +19,14 @@ class Comment extends Db_object
     
     public static function create_comment($photo_id, $author="John", $body)
     {
-        $photo_id = trim(htmlspecialchars($photo_id));
-        $author = trim(htmlspecialchars($author));
-        $body = trim(htmlspecialchars($body));
-        
+
         if (!empty($photo_id)       && $photo_id != ""
                 && !empty($author)  && $author != ""
                 && !empty($body)    && $body != "") {
             $comment            = new Comment();
             $comment->photo_id  = (int) $photo_id;
             $comment->author    = $author;
-            $body->body         = $body;
+            $comment->body         = $body;
             
             return $comment;            
         } else {
@@ -44,10 +41,27 @@ class Comment extends Db_object
         global $database;
         if ($database instanceof Database) {
             $sql  =  "SELECT * " . self::$db_table . " ";
-            $sql .= "WHERE photo_id = {$photo_id} ";
+            $sql .= "WHERE photo_id = {$database->escape_string($photo_id)} ";
             $sql .= "ORDER BY photo_id ASC";
-            $database->query($database->escape_string($sql));
+            $database->query($sql);
         } 
+    }
+    
+    public function save()
+    {
+        global $database;        
+
+        $sql = "INSERT INTO " . self::$db_table
+                . " (photo_id, author, body) ";
+        $sql .= "VALUES ($this->photo_id, '$this->author', '$this->body')";
+
+        // running the query and grabbing the id of the last inserted query.
+        if ($database->query($sql)) {
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
     }
     
 

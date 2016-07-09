@@ -1,10 +1,10 @@
 <?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()) { redirect("login"); } ?>
+<?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
 <?php 
     // if no id we shouldn't even be here.
     if (empty($_GET['id'])) {
-        redirect('users');        
+        redirect('users.php');        
     }
     
     // see if the user has submitted the edit form.
@@ -22,7 +22,7 @@
                 $user->set_file($_FILES['user_image']);
             }
             $user->save_user_and_image();                
-            redirect('users');
+            redirect('users.php');
         }        
     }
     // User did not submit the edit form but entered by clicking on a photo 
@@ -32,7 +32,7 @@
                 
         // if we didn't successfully instantiated a photo object.          
         if (!$user) {
-            redirect('users');
+            redirect('users.php');
         }
     }
 

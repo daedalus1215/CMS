@@ -3,19 +3,31 @@
 <?php 
 
 
-if (empty($_GET['id'])) {
-    redirect('index');
+if (empty($_GET['id'] || empty($_POST['photo_id']))) {
+    redirect('index.php');
 }
 
 
+$photo = (!empty($_GET['id'])) ? Photo::find_by_id($_GET['id']) : Photo::find_by_id($_POST['photo_id']);
 
-$photo = Photo::find_by_id($_GET['id']);
-
-echo $photo->title;
-
-
+$d = "";
 if (isset($_POST['submit'])) {
-    echo "HELLO";
+    $author = trim($_POST['author']);
+    $body = trim($_POST['body']);
+    
+    if ($author != '' && $body != '') {
+        $new_comment = Comment::create_comment($photo->id, $author, $body);
+           if ($new_comment && $new_comment->save()) {
+                unset($_POST['submit']);
+                redirect("photo.php?id={$photo->id}");
+            } else {
+                $message = "issue with saving.";
+                echo $message;
+            }
+    }
+ 
+    
+    
 }
 
 
@@ -138,7 +150,7 @@ if (isset($_POST['submit'])) {
                 
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form" action="" method="post">                        
+                    <form role="form" action="photo.php" method="post">                        
                         <div class="form-group">
                             <label for="author">Author</label>
                             <input type="text" name="author" class="form-control">
@@ -147,6 +159,7 @@ if (isset($_POST['submit'])) {
                             <label for="body">Body</label>
                             <textarea name="body" class="form-control" rows="3"></textarea>
                         </div>
+                        <input name="photo_id" type="hidden" value="<?php echo $photo->id; ?>">
                         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

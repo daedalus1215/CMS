@@ -3,7 +3,7 @@
 
 <?php
     if ($session->is_signed_in()) {
-        redirect('index');
+        redirect('index.php');
     }
 
     if (isset($_POST['submit'])) {
@@ -17,7 +17,7 @@
         if ($user_found) {
             unset($_POST);
             $session->login($user_found);
-            redirect("index");
+            redirect("index.php");
         } else {
             $message = "The password or username are incorrect.";
         }

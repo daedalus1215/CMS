@@ -1,11 +1,11 @@
 <?php include("includes/header.php"); ?>
 
-<?php if(!$session->is_signed_in()) { redirect("login"); } ?>
+<?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
 <?php 
     // If ID is not set
     if (empty($_GET['id'])) {
-        redirect("../users");
+        redirect("../users.php");
     }
 
     $user = User::find_by_id(htmlspecialchars($_GET['id']));
@@ -14,11 +14,11 @@
     if ($user) {
         $user->delete();
     } else {
-        redirect("../users");
+        redirect("../users.php");
     }
 ?>
 
-<?php redirect("../admin/users"); ?>
+<?php redirect("../admin/users.php"); ?>
 
 
 <?php include("includes/footer.php"); ?>

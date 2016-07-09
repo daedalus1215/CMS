@@ -26,5 +26,5 @@ spl_autoload_register('classAutoLoader');
 function redirect($location)
 {
     // redirect user to.
-    header("Location: {$location}.php");
+    header("Location: $location");
 }

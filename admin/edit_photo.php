@@ -1,5 +1,5 @@
 <?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()) { redirect("login"); } ?>
+<?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
 <?php 
     
@@ -17,13 +17,13 @@
                 $photo->caption         =$_POST['caption'];
                 $photo->description     = $_POST['description'];
                 $photo->save();
-                redirect('photos');
+                redirect('photos.php');
             }
         }        
     }
     // User did not submit the edit form but entered by clicking on a photo 
     else if (empty($_GET['id'])) {
-        redirect('photos');
+        redirect('photos.php');
     } else {
         // instantiating a existing photo object.
         $photo = Photo::find_by_id(trim(htmlspecialchars($_GET['id'])));

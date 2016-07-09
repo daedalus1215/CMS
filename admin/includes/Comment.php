@@ -64,6 +64,22 @@ class Comment extends Db_object
         }
     }
     
+/**
+     * Retrieve a user by their id.
+     * @global Database $database
+     * @param Integer $id, a user's id.
+     * @return User object of the user.
+     */
+    public static function find_by_id($id)
+    {
+        global $database;
+        $sql = "SELECT * FROM " . self::$db_table
+            . " WHERE id = {$database->escape_string($id)} LIMIT 1";
 
+        $result_set = static::find_by_query($sql);
+        //var_dump($result_sets);
+
+        return !empty($result_set) ? array_shift($result_set) : new Comment();
+    }
 
 } // End of class User

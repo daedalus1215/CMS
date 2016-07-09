@@ -5,20 +5,20 @@
 <?php 
     // If ID is not set
     if (empty($_GET['id'])) {
-        redirect("../photos.php");
+        redirect("../comments.php");
     }
 
-    $photo = Photo::find_by_id(htmlspecialchars($_GET['id']));
+    $comment = Comment::find_by_id(htmlspecialchars($_GET['id']));
 
     // Let's make sure we got a Photo and title isn't an empty string.
-    if ($photo && $photo->title != '') {
-        $photo->delete_photo();
+    if ($comment) {
+        $comment->delete();
     } else {
-        redirect("../photos.php");
+        redirect("../comments.php");
     }
 ?>
 
-<?php redirect("../admin/photos.php"); ?>
+<?php redirect("../admin/comments.php"); ?>
 
 
 <?php include("includes/footer.php"); ?>

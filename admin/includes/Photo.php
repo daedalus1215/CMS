@@ -208,7 +208,7 @@ class Photo extends Db_object
     public static function find_by_id($id)
     {
         global $database;
-        $sql = "SELECT * FROM " . static::$db_table
+        $sql = "SELECT * FROM " . self::$db_table
             . " WHERE id = {$database->escape_string($id)} LIMIT 1";
 
         $result_set = static::find_by_query($sql);

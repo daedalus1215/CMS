@@ -3,13 +3,15 @@
 
 <?php 
 
-$photos = Photo::find_all();
+if (empty($_GET['id'])) {
+    redirect("photos.php");
+}
+
+
+// grab comments with the photo_id belonging to the photo we selected.
+$comments = Comment::find_the_comments($_GET['id']);
 
 ?>
-
-
-
-
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -26,9 +28,11 @@ $photos = Photo::find_all();
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            PHOTOS
+                            USERS
                             <small>Subheading</small>
                         </h1>
+                        <a href="add_comment.php">Add comment</a>
+                        
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
@@ -36,38 +40,40 @@ $photos = Photo::find_all();
                             <li class="active">
                                 <i class="fa fa-file"></i> Blank Page
                             </li>
-                        </ol>
-                        
-                        
+                        </ol>                                              
                         
                         <div class="col-md-12">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Photo</th>
                                         <th>Id</th>
-                                        <th>File Name</th>
-                                        <th>Title</th>
-                                        <th>Size</th>
+                                        <th>Photo's Id</th>
+                                        <th>Author</th>
+                                        <th>Body</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($photos as $photo):?>
-                                    <tr>
-                                        <td><img class="admin-photo-thumbnail" src="<?php echo $photo->picture_path(); ?>" alt="">
+                                    <?php foreach ($comments as $comment):?>
+                                    <tr>                                                                                                                       
+                                        <td>
+                                            <?php echo $comment->id; ?>
+                                            <!-- Control of each one. -->
                                             <div class="picture_link">
-                                                <a href="delete_photo.php?id=<?php echo $photo->id; ?>">Delete</a>
-                                                <a href="edit_photo.php?id=<?php echo $photo->id; ?>">Edit</a>
-                                                <a href="view_photo.php?id=<?php echo $photo->id; ?>">View</a>
-                                                <a href="comment_photo.php?id=<?php echo $photo->id; ?>">Comments</a>
+                                                <a href="delete_comment.php?id=<?php echo $comment->id; ?>">Delete</a>
+                                                <a href="edit_comment.php?id=<?php echo $comment->id; ?>">Edit</a>
+                                                <a href="view_comment.php?id=<?php echo $comment->id; ?>">View</a>
                                             </div>
-                                        </td>                                                                                
-                                        <td><?php echo $photo->id; ?></td>
-                                        <td><?php echo $photo->filename; ?></td>
-                                        <td><?php echo $photo->title; ?></td>
-                                        <td><?php echo $photo->size; ?></td>
-                                    </tr>   
-                                    
+                                        </td>
+                                        <td>
+                                            <?php echo $comment->photo_id?>
+                                        </td>
+                                        <td>
+                                            <?php echo $comment->author; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $comment->body; ?>
+                                        </td>                                        
+                                    </tr>                                       
                                     <?php endforeach; ?>    
                                        
                                 </tbody>

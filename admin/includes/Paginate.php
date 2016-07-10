@@ -28,8 +28,8 @@ class Paginate
      */
     public function __construct($page=1, $items_per_page=4, $items_total_count=0) 
     {
-       $this->current_page   = (int) $page;
-       $this->items_per_page = (int) $items_per_page;
+       $this->current_page         = (int) $page;
+       $this->items_per_page       = (int) $items_per_page;
        $this->items_total_count    = (int) $items_total_count;
     }
     
@@ -61,7 +61,7 @@ class Paginate
      */
     public function page_total()
     {
-        $total_pages = (int) ceil($this->items_total_count / $this->items_per_page);
+        $total_pages = ceil($this->items_total_count / $this->items_per_page);
         return $total_pages;
     }
     
@@ -86,10 +86,7 @@ class Paginate
         return $hasMore;
     }
     
-    /**
-     * 
-     * @return type
-     */
+
     public function offset()
     {
         $offset = ($this->current_page - 1) * $this->items_per_page;

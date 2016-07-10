@@ -3,7 +3,7 @@
 <?php 
 
 
-if (empty($_GET['id'] || empty($_POST['photo_id']))) {
+if (!isset($_GET['id']) && !isset($_POST['photo_id'])) {
     redirect('index.php');
 }
 
@@ -19,15 +19,19 @@ if (isset($_POST['submit'])) {
         $new_comment = Comment::create_comment($photo->id, $author, $body);
            if ($new_comment && $new_comment->save()) {
                 unset($_POST['submit']);
+                
                 redirect("photo.php?id={$photo->id}");
             } else {
                 $message = "issue with saving.";
                 echo $message;
             }
+            
     }     
 } else {
     $arthur = "";
     $body = "";
+    unset($_POST['photo_id']);
+    unset($_GET['id']);
 }
 
 $comments = Comment::find_the_comments($photo->id);

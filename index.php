@@ -37,12 +37,13 @@ $photos = Photo::find_by_query($sql);
 
         <!-- PAGINATION -->
         <div class="row">
-            <ul class="pager">
+            <ul class="pagination">
                 <?php if ($paginate->page_total() > 1): ?> 
-                    <!-- next button-->
-                    <?php if ($paginate->has_next()): ?>
-                        <li class="next"><a href="index.php?page=<?php echo $paginate->next(); ?>">Next</a></li>                        
+                <!-- pervious button-->
+                    <?php if ($paginate->has_previous() > 0): ?>
+                        <li class="previous"><a href="index.php?page=<?php echo $paginate->previous(); ?>">Previous</a></li>
                     <?php endif; ?>
+                    
                         
                         <!-- Paginated numbered navigateable pages. -->
                         <?php for ($i=1; $i<=$paginate->page_total(); $i++): ?>
@@ -53,12 +54,10 @@ $photos = Photo::find_by_query($sql);
                                 }
                             ?>                        
                         <?php endfor; ?>
-                
-                        
-                    <!-- pervious button-->
-                    <?php if ($paginate->has_previous() > 0): ?>
-                        <li class="previous"><a href="index.php?page=<?php echo $paginate->previous(); ?>">Previous</a></li>
-                    <?php endif; ?>
+                    <!-- next button-->
+                    <?php if ($paginate->has_next()): ?>
+                        <li class="next"><a href="index.php?page=<?php echo $paginate->next(); ?>">Next</a></li>                        
+                    <?php endif; ?>                                           
                 <?php endif; ?>               
                 
             </ul>

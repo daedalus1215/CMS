@@ -34,5 +34,34 @@ class Paginate
     }
     
     
+    /**
+     * Go to next set of items (next page)
+     * @return int - the page we want to go to
+     */
+    public function next() 
+    {
+        return $this->current_page + 1;
+    }
+    
+    
+    /**
+     * Go to last set of items (next page)
+     * @return int - the page we want to go to
+     */
+    public function previous() 
+    {
+        return $this->current_page - 1;
+    }
+    
+    /**
+     * 
+     * @return int $total_pages - are the total amount of pages we will 
+     * have for all the items we are throwing at the Paginator.
+     */
+    public function page_total()
+    {
+        $total_pages = (int) ceiling($this->items_total_count / $this->items_per_page);
+        return $total_pages;
+    }
     
 }

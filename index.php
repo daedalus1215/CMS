@@ -39,9 +39,23 @@ $photos = Photo::find_by_query($sql);
         <div class="row">
             <ul class="pager">
                 <?php if ($paginate->page_total() > 1): ?> 
+                    <!-- next button-->
                     <?php if ($paginate->has_next()): ?>
-                <li class="next"><a href="index.php?page=<?php echo $paginate->next(); ?>">Next</a></li>                        
+                        <li class="next"><a href="index.php?page=<?php echo $paginate->next(); ?>">Next</a></li>                        
                     <?php endif; ?>
+                        
+                        <!-- Paginated numbered navigateable pages. -->
+                        <?php for ($i=1; $i<=$paginate->page_total(); $i++): ?>
+                            <?php if ($paginate->current_page == $i) {                                
+                                    echo "<li class='active'><a href='index.php?page={$i}'>{$i}</a></li>";
+                                } else {
+                                    echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+                                }
+                            ?>                        
+                        <?php endfor; ?>
+                
+                        
+                    <!-- pervious button-->
                     <?php if ($paginate->has_previous() > 0): ?>
                         <li class="previous"><a href="index.php?page=<?php echo $paginate->previous(); ?>">Previous</a></li>
                     <?php endif; ?>

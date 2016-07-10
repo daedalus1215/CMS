@@ -14,3 +14,7 @@ and open the template in the editor.
     width: 200px;
     height: 150px !important;
 }
+
+li.active {
+    font-weight: bolder;
+}

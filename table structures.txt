@@ -27,3 +27,7 @@ id          INT(11)
 photo_id    INT(11)
 author      VARCHAR(255)
 body        TEXT
+
+
+* Potential additions:
+    1. Save date the photo was saved, so we can display on photo.php

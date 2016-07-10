@@ -40,7 +40,8 @@ class Paginate
      */
     public function next() 
     {
-        return $this->current_page + 1;
+        $nextPage = $this->current_page + 1;
+        return $nextPage;
     }
     
     
@@ -50,18 +51,49 @@ class Paginate
      */
     public function previous() 
     {
-        return $this->current_page - 1;
+        $previousPage = $this->current_page - 1;
+        return $previousPage;
     }
     
-    /**
-     * 
+    /** 
      * @return int $total_pages - are the total amount of pages we will 
      * have for all the items we are throwing at the Paginator.
      */
     public function page_total()
     {
-        $total_pages = (int) ceiling($this->items_total_count / $this->items_per_page);
+        $total_pages = (int) ceil($this->items_total_count / $this->items_per_page);
         return $total_pages;
+    }
+    
+    /**
+     * Check if there is a page prior to the current one.
+     * @return type
+     */
+    public function has_previous()
+    {
+        $hasPrevious = ($this->previous() >= 1) ? true : false;
+        return $hasPrevious;
+    }
+    
+    /**
+     * Check if there is a page after the current one.
+     * @return boolean $hasMore - whether there is another available page
+     * we can go to or not.
+     */
+    public function has_next()
+    {
+        $hasMore = ($this->next() <= $this->page_total()) ? true : false; 
+        return $hasMore;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function offset()
+    {
+        $offset = ($this->current_page - 1) * $this->items_per_page;
+        return $offset;
     }
     
 }

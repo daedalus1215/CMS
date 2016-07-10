@@ -19,19 +19,22 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+        var data = google.visualization.arrayToDataTable([   
+          ['TASKS', 'HOURS'],
+          ['Views',       <?php echo $session->count; ?>],
+          ['Photos',      <?php echo Photo::count_all(); ?>],
+          ['Users',       <?php echo User::count_all(); ?>],
+          ['Comments',    <?php echo Comment::count_all(); ?>],
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title:            'Site Stats',
+          pieSliceText:     'label',
+          legend:           'none',
+          backgroundColor:  'transparent'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

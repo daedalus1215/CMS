@@ -1,7 +1,18 @@
 <?php include("includes/header.php"); ?>
 
-    
-    
+<?php
+
+// make sure we get the page, if we don't have one then we know we must be on page one.
+$page = !empty($_GET['page']) ? (int) $_GET['page'] : 1; 
+
+$items_per_page = 4; // limit how many items per page.
+
+$items_total_count = Photo::count_all();
+
+
+
+?>
+
 <?php $photos = Photo::find_all(); ?>
 
         <div class="row">

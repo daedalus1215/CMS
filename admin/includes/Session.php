@@ -22,6 +22,15 @@ class Session
         $this->check_message();
     }
 
+    
+    
+    public function visitor_count() 
+    {
+        
+    }
+    
+    
+    
     /**
      * Check if we have a saved user_id in the global Session, if not, we will unset the user_id and make sure we
      * set our signed_in boolean to false.

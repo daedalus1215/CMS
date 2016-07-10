@@ -19,14 +19,22 @@ class Session
     function __construct()
     {
         $this->check_the_login();
-        $this->check_message();
+        $this->check_message();        
+        $this->visitor_count(); // keep track of how many users.
     }
 
     
-    
+    /**
+     * Keep track of how many sessions has been established. 
+     * Essentially helps us determine how many people have visited the page.
+     */
     public function visitor_count() 
     {
-        
+        if (isset($_SESSION['count'])) {
+            return $this->count = $_SESSION['count']++;
+        } else {
+            return $_SESSION['count'] = 1;
+        }
     }
     
     
@@ -89,7 +97,7 @@ class Session
             return $this->message;
         }
     }
-
+    
     public function check_message()
     {
         if (isset($_SESSION['message'])) {

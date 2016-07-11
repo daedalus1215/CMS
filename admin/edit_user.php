@@ -40,6 +40,7 @@
 
 ?>
 
+    <?php include('includes/photo_library_modal.php'); ?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -71,7 +72,7 @@
                     
                     
                 <div class="col-md-6">
-                    <img class="img-responsive" src="<?php echo $user->getImage(); ?>" alt="">
+                    <a href="#" data-toggle="modal" data-target="#photo-modal"><img class="img-responsive" src="<?php echo $user->getImage(); ?>" alt=""></a>
                 </div>    
                     
                     

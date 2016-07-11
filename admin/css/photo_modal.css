@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 10, 2016, 10:17:14 PM
+    Author     : larry
+*/
+
+
+.modal-dialog {
+width: 90% !important;
+
+
+
+}
+
+.modal-body {
+overflow: auto;
+height: 500px !important;
+min-height: 300px !important;
+}
+
+.modal_thumbnails {
+
+    width: 150px;
+    height: 100px !important;
+}
+
+#set_user_image {
+
+margin:10px;
+
+}
+
+
+#modal_sidebar {
+
+position: fixed !important;
+
+}

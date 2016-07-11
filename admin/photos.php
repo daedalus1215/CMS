@@ -39,7 +39,7 @@ $photos = Photo::find_all();
                         </ol>
                         
                         <div>
-                            <a href="upload.php">Add Photo</a>
+                            <a class="btn btn-primary" href="upload.php">Add Photo</a>
                         </div>
                         
                         

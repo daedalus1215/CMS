@@ -24,9 +24,7 @@ $comments = Comment::find_all();
                         <h1 class="page-header">
                             USERS
                             <small>Subheading</small>
-                        </h1>
-                        <a href="add_comment.php">Add comment</a>
-                        
+                        </h1>                                              
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

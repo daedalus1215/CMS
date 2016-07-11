@@ -29,7 +29,7 @@ $users = User::find_all();
                             USERS
                             <small>Subheading</small>
                         </h1>
-                        <a href="add_user.php">Add user</a>
+                        <a class="btn btn-primary" href="add_user.php">Add user</a>
                         
                         <ol class="breadcrumb">
                             <li>

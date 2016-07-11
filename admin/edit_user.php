@@ -39,8 +39,11 @@
 
 
 ?>
-
+    
     <?php include('includes/photo_library_modal.php'); ?>
+
+
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

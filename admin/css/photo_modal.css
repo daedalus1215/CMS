@@ -8,12 +8,13 @@ and open the template in the editor.
     Author     : larry
 */
 
+body {
+     background-color: #269abc;
+}
+
 
 .modal-dialog {
-width: 90% !important;
-
-
-
+    width: 90% !important;
 }
 
 .modal-body {

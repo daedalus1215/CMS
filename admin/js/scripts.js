@@ -3,5 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+$(document).ready(function(){
+    tinymce.init({ selector:'textarea' });
+    
+    
+    
+    
+    
+});
 
-tinymce.init({ selector:'textarea' });
+

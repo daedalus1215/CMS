@@ -10,7 +10,7 @@ $(document).ready(function(){
         var userId;
         var image_src;
         var image_href_splitted;
-        var image_id;
+        var image_name;
         
         // Make sure the button is now selectable.
         $('#set_user_image').prop('disabled', false);
@@ -23,18 +23,31 @@ $(document).ready(function(){
          
         image_src = $(this).prop("src"); //grabbing the images path and name includes/images/image_name.jpg
         image_href_splitted = image_src.split("/");  
-        image_id = image_href_splitted[image_href_splitted.length -1]; // grab that image_name.jpg
-        
-        alert(image_id);
+        image_name = image_href_splitted[image_href_splitted.length -1]; // grab that image_name.jpg
         
         
-        
+                      
+    });
+    // essentially the submit button on the modal.
+    $('#set_user_image').click(function() {
+        $.ajax({
+            url: "includes/ajax_responses/ajax_code.php",
+            data: {image_name: image_name, userId: userId}, 
+            type: "POST",
+            success: function(data) {
+                if (!data.error) {
+                    alert(image_name);
+                }
+            },
+            error: function() {
+                
+            }
+        });
     });
     
     
     
-    
-    
+ 
     
     
     

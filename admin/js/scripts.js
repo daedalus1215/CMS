@@ -30,17 +30,16 @@ $(document).ready(function(){
     });
     // essentially the submit button on the modal.
     $('#set_user_image').click(function() {
+        var d = image_name;
         $.ajax({
             url: "includes/ajax_responses/ajax_code.php",
             data: {image_name: image_name, userId: userId}, 
             type: "POST",
             success: function(data) {
+                console.log(data);
                 if (!data.error) {
-                    alert(image_name);
+                    alert(data);
                 }
-            },
-            error: function() {
-                
             }
         });
     });

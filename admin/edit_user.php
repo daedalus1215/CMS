@@ -1,6 +1,15 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
+    
+<?php include('includes/photo_library_modal.php'); ?>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <?php include("includes/top_nav.php"); ?>
+        <?php include("includes/side_nav.php"); ?>
+        <!-- /.navbar-collapse -->
+    </nav>  
 <?php 
     // if no id we shouldn't even be here.
     if (empty($_GET['id'])) {
@@ -38,20 +47,11 @@
 
 
 
-?>
+?>  
     
-    <?php include('includes/photo_library_modal.php'); ?>
-
-
-
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <?php include("includes/top_nav.php"); ?>
-        <?php include("includes/side_nav.php"); ?>
-        <!-- /.navbar-collapse -->
-    </nav>
-
+    
+    
+    
     <div id="page-wrapper">
 
         <div class="container-fluid">

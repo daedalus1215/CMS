@@ -11,7 +11,6 @@ $(document).ready(function(){
         var image_src;
         var image_href_splitted;
         var image_name;
-        
         // Make sure the button is now selectable.
         $('#set_user_image').prop('disabled', false);
         
@@ -31,14 +30,16 @@ $(document).ready(function(){
     // essentially the submit button on the modal.
     $('#set_user_image').click(function() {
         var d = image_name;
+        
         $.ajax({
-            url: "includes/ajax_responses/ajax_code.php",
-            data: {image_name: image_name, userId: userId}, 
+            url: "ajax_responses/ajax_code.php",
+            data: {image_name: image_name, user_id: userId}, 
             type: "POST",
             success: function(data) {
                 console.log(data);
+                alert(data);
                 if (!data.error) {
-                    alert(data);
+                    
                 }
             }
         });

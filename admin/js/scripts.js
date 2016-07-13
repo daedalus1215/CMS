@@ -39,10 +39,8 @@ $(document).ready(function(){
             data: {image_name: image_name, user_id: userId}, 
             type: "POST",
             success: function(data) {
-                console.log(data);
-                alert(data);
                 if (!data.error) {
-                    
+                    $('#user_photo').prop('src', '<?php echo $user->getImage(); ?>')
                 }
             }
         });

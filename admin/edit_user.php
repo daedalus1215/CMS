@@ -77,7 +77,7 @@
                     
                     
                 <div class="col-md-6">
-                    <a href="#" data-toggle="modal" data-target="#photo-modal"><img class="img-responsive" src="<?php echo $user->getImage(); ?>" alt=""></a>
+                    <a id="user_photo" href="#" data-toggle="modal" data-target="#photo-modal"><img class="img-responsive" src="<?php echo $user->getImage(); ?>" alt=""></a>
                 </div>    
                     
                     

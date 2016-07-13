@@ -255,4 +255,18 @@ class User extends Db_object
     }
 
 
+    /**
+     * We will save the user's image, through an ajax response (probably edit_user.php > ajax_code.php
+     * 
+     * @param string $user_image : the string name of the new user's image.     
+     */
+    public function ajax_save_user_image($user_image) 
+    {
+        $this->user_image = $user_image;        
+        $this->tmp_path = "filler"; // need this so that way in the update() we save the image.
+        $this->save();
+    }
+    
+    
+    
 } // End of class User

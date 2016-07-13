@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 $(document).ready(function(){
+    var user_href;
+    var user_href_splitted;
+    var userId;
+    var image_src;
+    var image_href_splitted;
+    var image_name;
+        
+    // Image click listener for the photos that are being displayed.    
     $('.modal_thumbnails').click(function() {
-        var user_href;
-        var user_href_splitted;
-        var userId;
-        var image_src;
-        var image_href_splitted;
-        var image_name;
+        
         // Make sure the button is now selectable.
         $('#set_user_image').prop('disabled', false);
         
@@ -23,16 +26,16 @@ $(document).ready(function(){
         image_src = $(this).prop("src"); //grabbing the images path and name includes/images/image_name.jpg
         image_href_splitted = image_src.split("/");  
         image_name = image_href_splitted[image_href_splitted.length -1]; // grab that image_name.jpg
-        
-        
-                      
+            
     });
+    
+    
     // essentially the submit button on the modal.
     $('#set_user_image').click(function() {
         var d = image_name;
         
         $.ajax({
-            url: "ajax_responses/ajax_code.php",
+            url: "includes/ajax_responses/ajax_code.php",
             data: {image_name: image_name, user_id: userId}, 
             type: "POST",
             success: function(data) {

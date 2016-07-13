@@ -1,8 +1,9 @@
 <?php include("includes/header.php"); ?>
 <?php if(!$session->is_signed_in()) { redirect("login.php"); } ?>
 
+    <!-- Hidden until triggered by clicking on the user's image. -->
+    <?php include('includes/photo_library_modal.php'); ?>
     
-<?php include('includes/photo_library_modal.php'); ?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -50,6 +51,7 @@
 ?>  
     
     
+
     
     
     <div id="page-wrapper">

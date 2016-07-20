@@ -13,7 +13,7 @@ class Session
      */
     public $user_id;
 
-    public $message;
+    protected $message;
 
 
     function __construct()
@@ -88,15 +88,27 @@ class Session
         $_SESSION = Array();
         $this->signed_in = false;
     }
-
-    public function message($msg = "")
+    
+    /**
+     * Set the session's message.
+     * @param string $msg
+     */
+    public function setMessage($msg = "")
     {
         if (!empty($msg)) {
+            $this->message = $msg;
             $_SESSION['message'] = $msg;
-        } else {
-            return $this->message;
         }
     }
+    
+    /**
+     * Returns the session's message.
+     * @return string
+     */
+    public function getMessage() {
+        return $this->message;
+    }
+    
     
     public function check_message()
     {
@@ -106,9 +118,6 @@ class Session
         } else {
             $this->message = "";
         }
-    }
-
-
-
+    } 
 }
 $session = new Session();

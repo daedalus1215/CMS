@@ -30,7 +30,9 @@ $users = User::find_all();
                             <small>Subheading</small>
                         </h1>
                         <a class="btn btn-primary" href="add_user.php">Add user</a>
-                        
+                        <p class="bg-success">
+                            <?php echo ($session) ? $session->getMessage() : ''; ?>
+                        </p>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

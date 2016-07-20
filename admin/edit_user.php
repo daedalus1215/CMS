@@ -28,10 +28,13 @@
             $user->last_name  = htmlspecialchars($_POST['last_name']);
             $user->username   = htmlspecialchars($_POST['username']);
             $user->password   = htmlspecialchars($_POST['password']);
+            
             if (!empty($_FILES['user_image'])) {
                 $user->set_file($_FILES['user_image']);
             }
-            $user->save_user_and_image();                
+            
+            $user->save_user_and_image();
+            ($session) ? $session->setMessage('User updated.') : ''; // store and save for the users.php page.
             redirect('users.php');
         }        
     }

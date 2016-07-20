@@ -131,7 +131,7 @@ class User extends Db_object
      */
     public function save_user_and_image()
     {
-        // id already exists - lets update just update.
+        // id already exists - lets update.
         if ($this->id) {
             $this->moveFiles();
             $this->update();
@@ -142,13 +142,12 @@ class User extends Db_object
             if (!empty($this->errors)) {
                 return false;
             }
-//            echo "Photo debug - user_image= $this->user_image";
-//            echo "Photo debug - tmp path= $this->tmp_path";
+
             if (empty($this->user_image) || empty($this->tmp_path)) {
                 $this->errors[] = "the file was not available.";
                 return false;
             }
-
+            
             $this->moveFiles();
         }
     }

@@ -216,6 +216,16 @@ class Photo extends Db_object
 
         return !empty($result_set) ? array_shift($result_set) : new Photo();
     }
+    
+    
+    public function ajax_response() 
+    {
+        $output = "<a class='thumbnail' href='#'><img width='100' src='{$this->picture_path()}'></a>";
+        $output .= "<p>{$this->filename}</p>";
+        $output .= "<p>{$this->type}</p>";
+        $output .= "<p>{$this->size}</p>";
+        echo $output;
+    }
 
 
 }

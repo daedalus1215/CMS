@@ -11,7 +11,7 @@ if (isset($_POST['image_name']) && trim(htmlspecialchars($_POST['image_name'])) 
 } else if (isset($_POST['photo_id']) && trim(htmlspecialchars($_POST['photo_id'])) != '') {
     $photo = Photo::find_by_id(trim(htmlspecialchars($_POST['photo_id'])));
     if ($photo) {
-        echo "It Works";
+        $photo->ajax_response();
     }
 } else {
     echo "Can't save this image.";

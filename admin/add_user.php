@@ -15,6 +15,17 @@
             $user->username   = htmlspecialchars($_POST['username']);
             $user->password   = htmlspecialchars($_POST['password']);
             $user->set_file($_FILES['user_image']);
+            
+            // set the photo up
+            $photo = new Photo();
+            $photo->title = $user->username . " uploaded profile image.";
+    
+            $photo->set_file($_FILES['user_image']);        
+
+            if ($photo->save()) {
+                $session->setMessage('Added new user.');
+            }        
+
             $user->save_user_and_image();
             redirect('users.php');
         }

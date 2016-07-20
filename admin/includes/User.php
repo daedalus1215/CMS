@@ -7,8 +7,7 @@
 
 
 
-class User extends Db_object
-{
+class User extends Db_object {
     /*Table that this object maps to.*/
     protected static $db_table = "users";
 
@@ -131,6 +130,7 @@ class User extends Db_object
      */
     public function save_user_and_image()
     {
+        global $session;
         // id already exists - lets update.
         if ($this->id) {
             $this->moveFiles();
@@ -148,7 +148,9 @@ class User extends Db_object
                 return false;
             }
             
-            $this->moveFiles();
+            if ($this->moveFiles()) {
+                $session->setMessage('Issue with moving user image files over.');    
+            }
         }
     }
     
@@ -164,21 +166,20 @@ class User extends Db_object
             //echo "TaRGET PATH = " . $target_path;
             // because sometimes there is a file already there.
             if (file_exists($target_path)) {
-                $this->errors[] = "The file {$this->user_image} already exists";
-                return false;
+                // Don't move files, just save the user.
+                return $this->save();                
             }
+        }
 
-            if (move_uploaded_file($this->tmp_path, $target_path)) {
-                if ($this->save()) {                    
-                    return true;
-                }
-            }  else {
-                    $this->errors[] = "Moving the file over had an issue - it maybe because you do not have permissions.";
-                    return false;
-                }
+        if (move_uploaded_file($this->tmp_path, $target_path)) {
+            return $this->save();                           
+        }else {
+            $this->errors[] = "Moving the file over had an issue - it maybe because you do not have permissions.";
+            return false;
         }
+    }
             
-        }
+      
     
 
     // <----------------------------------------------------

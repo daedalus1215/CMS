@@ -40,7 +40,8 @@ $(document).ready(function(){
             type: "POST",
             success: function(data) {
                 if (!data.error) {
-                    $('#user_photo').prop('src', '<?php echo $user->getImage(); ?>')
+                    $('#user_photo').prop('src', '<?php echo $user->getImage(); ?>');
+                    location.reload(true);
                 }
             }
         });

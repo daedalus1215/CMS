@@ -10,6 +10,7 @@ $(document).ready(function(){
     var image_src;
     var image_href_splitted;
     var image_name;
+    var photo_id;
         
     // Image click listener for the photos that are being displayed.    
     $('.modal_thumbnails').click(function() {
@@ -26,6 +27,24 @@ $(document).ready(function(){
         image_src = $(this).prop("src"); //grabbing the images path and name includes/images/image_name.jpg
         image_href_splitted = image_src.split("/");  
         image_name = image_href_splitted[image_href_splitted.length -1]; // grab that image_name.jpg
+        
+        photo_id = $(this).attr("data");
+        
+        
+        // Let's go get the pertanent data in regards to this modal_thumbnail we have selected.
+        $.ajax({
+            url: 'includes/ajax_responses/ajax_code.php',
+            data: {photo_id:photo_id},
+            type: "POST",
+            success: function(data) {
+                if (!data.error) {
+                    $("#modal_sidebar").html(data);
+                }
+            }
+        });
+        
+        
+        
             
     });
     

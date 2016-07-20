@@ -263,7 +263,7 @@ class User extends Db_object
     public function ajax_save_user_image($user_image) 
     {
         $this->user_image = $user_image;        
-        $this->tmp_path = "filler"; // need this so that way in the update() we save the image.
+        $this->tmp_path = "filler"; // need this so that way in the update() we save the image. It really can be anything other than nothing :-).
         $this->save();
     }
     

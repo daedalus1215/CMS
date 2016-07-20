@@ -13,6 +13,7 @@
     // Let's make sure we got a User and title isn't an empty string.
     if ($user) {
         $user->delete();
+        ($session) ? $session->setMessage('User ' . $user->username . ' has been deleted.') : '';
     } else {
         redirect("../users.php");
     }

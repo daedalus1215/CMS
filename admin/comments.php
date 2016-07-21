@@ -24,7 +24,10 @@ $comments = Comment::find_all();
                         <h1 class="page-header">
                             USERS
                             <small>Subheading</small>
-                        </h1>                                              
+                        </h1>        
+                        <p class="bg-success">
+                            <?php echo ($session) ? $session->getMessage() : ''; ?>
+                        </p>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>

@@ -37,7 +37,9 @@ $photos = Photo::find_all();
                                 <i class="fa fa-file"></i> Blank Page
                             </li>
                         </ol>
-                        
+                        <p class="bg-success">
+                            <?php echo ($session) ? $session->getMessage() : ''; ?>
+                        </p>
                         <div>
                             <a class="btn btn-primary" href="upload.php">Add Photo</a>
                         </div>

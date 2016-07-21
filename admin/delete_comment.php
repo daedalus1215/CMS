@@ -22,6 +22,7 @@
     // Let's make sure we got a Photo and title isn't an empty string.
     if ($comment) {
         $comment->delete();
+        $session->setMessage('Comment Deleted');
     } else {
         redirect("../comments.php");
     }

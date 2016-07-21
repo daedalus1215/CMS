@@ -17,6 +17,7 @@
                 $photo->caption         =$_POST['caption'];
                 $photo->description     = $_POST['description'];
                 $photo->save();
+                $session->setMessage('Edited Photo.');
                 redirect('photos.php');
             }
         }        

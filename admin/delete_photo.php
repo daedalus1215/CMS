@@ -13,6 +13,7 @@
     // Let's make sure we got a Photo and title isn't an empty string.
     if ($photo && $photo->title != '') {
         $photo->delete_photo();
+        $session->setMessage('Deleted photo.');
     } else {
         redirect("../photos.php");
     }

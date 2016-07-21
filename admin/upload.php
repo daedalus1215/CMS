@@ -3,13 +3,11 @@
 
 
 <?php 
-    if (isset($_POST['submit'])) {
+    if (isset($_FILES['file'])) {
         
         $photo = new Photo();
         $photo->title = htmlspecialchars($_POST['title']);
-//        print ("Upload.php - The file that was uploaded: </br>");
-//        print_r($_FILES);
-        $photo->set_file($_FILES['file_upload']);        
+        $photo->set_file($_FILES['file']);        
         
         if ($photo->save()) {
             $message = "Photo upload successfully.";
@@ -60,7 +58,7 @@
                                         <input type="text" name="title"></input>
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" name="file_upload"></input>
+                                        <input type="file" name="file"></input>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="submit"></input>

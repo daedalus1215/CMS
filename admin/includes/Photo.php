@@ -106,7 +106,7 @@ class Photo extends Db_object
 //            echo "Photo debug - filename= $this->filename";
 //            echo "Photo debug - tmp path= $this->tmp_path";
             if (empty($this->filename) || empty($this->tmp_path)) {
-                $this->errors[] = "the file was not available.";
+                //$this->errors[] = "the file was not available.";
                 return false;
             }
 

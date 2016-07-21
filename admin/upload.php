@@ -10,7 +10,8 @@
         $photo->set_file($_FILES['file']);        
         
         if ($photo->save()) {
-            $message = "Photo upload successfully.";
+            $message = "New Photo(s) added.";
+            redirect('photos.php');
         } else {
             foreach ($photo->errors as $error) {
                 print($error . "<br/>");
@@ -68,7 +69,7 @@
                             
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="upload" class="dropzone"></form>
+                                    <form action="upload.php" class="dropzone"></form>
                                 </div>                           
                             </div><!-- /.row -->
                             

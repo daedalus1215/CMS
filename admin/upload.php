@@ -54,22 +54,27 @@
                         </ol>
                         
                         <div class="col-md-6">
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <input type="text" name="title"></input>
-                                </div>
-                                <div class="form-group">
-                                    <input type="file" name="file_upload"></input>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" name="submit"></input>
-                                </div>
-                            </form>
-                        </div>   
-                        
-                    </div>
-                </div>
-                <!-- /.row -->
+                            <div class="row">
+                                <form action="upload.php" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="text" name="title"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" name="file_upload"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" name="submit"></input>
+                                    </div>
+                                </form>
+                            </div><!-- /.row -->
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form action="upload" class="dropzone"></form>
+                                </div>                           
+                            </div><!-- /.row -->
+                            
+                        </div><!-- /.row -->
 
             </div>
             <!-- /.container-fluid -->

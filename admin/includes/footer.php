@@ -13,6 +13,10 @@
     <!-- Google Charts-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
+    <!-- Dropzone Scripts -->
+    <script src="js/vendor/dropzone.js"></script>
+    
+    <!-- Custom Scripts -->
     <script src="js/scripts.js"></script>
     
     <!-- Google Charts-->

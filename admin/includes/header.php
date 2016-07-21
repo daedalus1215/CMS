@@ -22,6 +22,9 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
+    <!-- Dropzone stuff -->
+    <link href="css/dropzone.css" rel="stylesheet">
+    
     <!-- Modal stuff -->
     <link href="css/photo_modal.css" rel="stylesheet">
     

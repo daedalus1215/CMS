@@ -28,7 +28,7 @@ CREATE TABLE `comments` (
   `author` varchar(255) DEFAULT NULL,
   `body` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (3,7,'sdfdsfdsfsdf','sdfdsf'),(4,7,'frank','Comments are now working.'),(8,11,'Jarry','Oh man sweet ride.'),(11,10,'harry','comment3'),(12,10,'dsfsdf','dsfsf'),(13,10,'asd','dsaf');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ CREATE TABLE `photos` (
   `caption` varchar(255) DEFAULT NULL,
   `alternate_text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +67,7 @@ CREATE TABLE `photos` (
 
 LOCK TABLES `photos` WRITE;
 /*!40000 ALTER TABLE `photos` DISABLE KEYS */;
-INSERT INTO `photos` VALUES (6,'new title','dd','IMG_2009.JPG','image/jpeg',119938,'','ALTERNATIVE TEXT'),(7,'Pohoto 34','','IMG_2011.JPG','image/jpeg',883458,NULL,NULL),(8,'here we go.','','IMG_2001.JPG','image/jpeg',55427,'','');
+INSERT INTO `photos` VALUES (11,'Car sleak','','images-3 copy.jpg','image/jpeg',18096,'',''),(12,'third photo','','_large_image_4.jpg','image/jpeg',554659,'',''),(13,'some photo','','_large_image_3.jpg','image/jpeg',165053,'',''),(14,'omg','','images-50.jpg','image/jpeg',21652,'',''),(15,'usernew uploaded profile image.','','images-6 copy.jpg','image/jpeg',21886,'',''),(16,'j uploaded profile image.','','images-22.jpg','image/jpeg',21133,'',''),(17,'happ uploaded profile image.','','images-15 copy.jpg','image/jpeg',28466,'',''),(18,'aaa uploaded profile image.','','images-18.jpg','image/jpeg',27595,'',''),(19,'dsa uploaded profile image.','','images-21.jpg','image/jpeg',19957,'',''),(20,'','','images-29 copy.jpg','image/jpeg',25493,'',''),(21,'','','images-30.jpg','image/jpeg',20257,'',''),(22,'','','images-36.jpg','image/jpeg',21672,'',''),(23,'','','images-26 copy.jpg','image/jpeg',21802,'',''),(24,'','','images-1.jpg','image/jpeg',28947,'',''),(25,'','','images-24 copy.jpg','image/jpeg',29850,'',''),(26,'','','images-33.jpg','image/jpeg',16855,'',''),(27,'','','images-32 copy.jpg','image/jpeg',22772,'','');
 /*!40000 ALTER TABLE `photos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +86,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `user_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (6,'frankMiller','frank','miller','frank','IMG_2004.JPG'),(8,'ladams','larry','adams','larry','IMG_2011.JPG');
+INSERT INTO `users` VALUES (10,'henry','henry','jenkins','henry','images-19.jpg'),(11,'aaa','kkk','lll','aaa','images-18.jpg'),(12,'dsa','ssa','as','sad','images-21.jpg'),(13,'dsa','ssa','as','sad','images-21.jpg'),(14,'dsa','ssa','as','sad','images-21.jpg'),(15,'dsa','ssa','as','sad','images-21.jpg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -107,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-08 22:42:31
+-- Dump completed on 2016-07-20 21:16:49
